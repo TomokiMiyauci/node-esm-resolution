@@ -6,10 +6,10 @@ import { readFile } from "./utils.ts";
  * @throws {InvalidPackageConfigurationError}
  */
 export default function READ_PACKAGE_JSON(
-  packageURL: string,
+  packageURL: URL,
 ): Record<string, unknown> | null {
   // 1. Let pjsonURL be the resolution of "package.json" within packageURL.
-  const pjsonURL = join(packageURL, "package.json").href;
+  const pjsonURL = join(packageURL, "package.json");
 
   const file = readFile(pjsonURL);
   // 2. If the file at pjsonURL does not exist, then

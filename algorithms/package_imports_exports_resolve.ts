@@ -8,7 +8,7 @@ import PATTERN_KEY_COMPARE from "./pattern_key_compare.ts";
 export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
   matchKey: string,
   matchObj: Record<string, Target>,
-  packageURL: string,
+  packageURL: URL,
   isImports: boolean,
   conditions: string[],
 ): string | null | undefined {
@@ -28,9 +28,10 @@ export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
   }
 
   // 2. Let expansionKeys be the list of keys of matchObj containing only a single "*", sorted by the sorting function PATTERN_KEY_COMPARE which orders in descending order of specificity.
-  const expansionKeys = Object.keys(matchObj).filter(hasSingleStar).toSorted(
-    PATTERN_KEY_COMPARE,
-  );
+  const expansionKeys = Object.keys(matchObj)
+    .filter(hasSingleStar)
+    .toSorted(PATTERN_KEY_COMPARE)
+    .toReversed();
 
   // 3. For each key expansionKey in expansionKeys, do
   for (const expansionKey of expansionKeys) {

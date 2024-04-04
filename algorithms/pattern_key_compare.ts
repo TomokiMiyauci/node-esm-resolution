@@ -20,10 +20,10 @@ export default function PATTERN_KEY_COMPARE(
   if (baseLengthB > baseLengthA) return 1;
 
   // 7. If keyA does not contain "*", return 1.
-  if (!keyA.includes("*")) return 1;
+  if (indexOfKeyA === -1) return 1;
 
   // 8. If keyB does not contain "*", return -1.
-  if (!keyB.includes("*")) return -1;
+  if (indexOfKeyB === -1) return -1;
 
   // 9. If the length of keyA is greater than the length of keyB, return -1.
   if (keyA.length > keyB.length) return -1;

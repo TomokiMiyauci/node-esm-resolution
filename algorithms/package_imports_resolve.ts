@@ -9,7 +9,7 @@ import { isObject } from "./utils.ts";
 
 export default function PACKAGE_IMPORTS_RESOLVE(
   specifier: `#${string}`, // 1. Assert: specifier begins with "#".
-  parentURL: string,
+  parentURL: URL,
   conditions: string[],
 ): string {
   // 2. If specifier is exactly equal to "#" or starts with "#/", then

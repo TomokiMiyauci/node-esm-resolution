@@ -6,7 +6,6 @@ import {
   defaultConditions,
   existDir,
   type Exports,
-  getParentURL,
   isFileSystemRoot,
   secondIndexOf,
 } from "./utils.ts";
@@ -17,7 +16,7 @@ import { buildInModules, join } from "../deps.ts";
  */
 export default function PACKAGE_RESOLVE(
   packageSpecifier: string,
-  parentURL: string,
+  parentURL: URL,
 ): string {
   // 1. Let packageName be undefined.
   let packageName: string;
@@ -87,10 +86,10 @@ export default function PACKAGE_RESOLVE(
   while (!isFileSystemRoot(parentURL)) {
     // 1. Let packageURL be the URL resolution of "node_modules/" concatenated with packageSpecifier, relative to parentURL.
     // @remarks: Maybe not `packageSpecifier`, but packageName
-    const packageURL = new URL("node_modules/" + packageName, parentURL).href;
+    const packageURL = new URL("node_modules/" + packageName, parentURL);
 
     // 2. Set parentURL to the parent folder URL of parentURL.
-    parentURL = getParentURL(parentURL).toString();
+    parentURL = new URL("..", parentURL);
 
     // 3. If the folder at packageURL does not exist, then
     if (!existDir(packageURL)) {

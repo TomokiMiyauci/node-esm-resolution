@@ -1,4 +1,4 @@
-import { escape, existsSync, join, normalize } from "../deps.ts";
+import { escape, existsSync } from "../deps.ts";
 
 export type Target =
   | string
@@ -15,9 +15,9 @@ export function isStartWithPeriod(input: string): input is `.${string}` {
   return input.startsWith(".");
 }
 
-export function readFile(path: string): string | null {
+export function readFile(path: URL): string | null {
   try {
-    return Deno.readTextFileSync(new URL(path));
+    return Deno.readTextFileSync(path);
   } catch (e) {
     if (e instanceof Deno.errors.NotFound) {
       return null;
@@ -27,16 +27,13 @@ export function readFile(path: string): string | null {
   }
 }
 
-export function getParentURL(url: string | URL): URL {
-  return normalize(join(url, ".."));
+export function isFileSystemRoot(url: URL): boolean {
+  return url.pathname === "/";
 }
 
-export function isFileSystemRoot(url: string): boolean {
-  return url === "file:///";
-}
-
-export function existFile(url: string): boolean {
-  return existsSync(new URL(url), { isFile: true });
+export function existFile(url: URL): boolean {
+  console.log(url);
+  return existsSync(url, { isFile: true });
 }
 
 export function hasSinglePattern(input: string, pattern: string): boolean {
@@ -56,8 +53,8 @@ export function secondIndexOf(input: string, searchString: string): number {
   return input.indexOf(searchString, firstIndex + 1);
 }
 
-export function existDir(path: string): boolean {
-  return existsSync(new URL(path));
+export function existDir(path: URL): boolean {
+  return existsSync(path);
 }
 
 export const defaultConditions = ["node", "import"];

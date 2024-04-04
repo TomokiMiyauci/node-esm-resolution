@@ -10,7 +10,7 @@ import { defaultConditions, type Exports } from "./utils.ts";
 export default function PACKAGE_SELF_RESOLVE(
   packageName: string,
   packageSubpath: string,
-  parentURL: string,
+  parentURL: URL,
 ): string | undefined {
   // 1. Let packageURL be the result of LOOKUP_PACKAGE_SCOPE(parentURL).
   const packageURL = LOOKUP_PACKAGE_SCOPE(parentURL);

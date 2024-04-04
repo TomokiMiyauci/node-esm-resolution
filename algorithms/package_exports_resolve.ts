@@ -16,7 +16,7 @@ import PACKAGE_IMPORTS_EXPORTS_RESOLVE from "./package_imports_exports_resolve.t
  * @throws {InvalidPackageConfigurationError}
  */
 export default function PACKAGE_EXPORTS_RESOLVE(
-  packageURL: string,
+  packageURL: URL,
   subpath: string,
   exports: Exports,
   conditions: string[],

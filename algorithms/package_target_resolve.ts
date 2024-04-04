@@ -7,7 +7,7 @@ import PACKAGE_RESOLVE from "./package_resolve.ts";
  * @throws {InvalidPackageTargetError}
  */
 export default function PACKAGE_TARGET_RESOLVE(
-  packageURL: string,
+  packageURL: URL,
   target: Target,
   patternMatch: string | null,
   isImports: boolean,
@@ -32,10 +32,10 @@ export default function PACKAGE_TARGET_RESOLVE(
         const replaced = target.replaceAll("*", patternMatch);
 
         // 1. Return PACKAGE_RESOLVE(target with every instance of "*" replaced by patternMatch, packageURL + "/").
-        return PACKAGE_RESOLVE(replaced, packageURL + "/");
+        return PACKAGE_RESOLVE(replaced, join(packageURL, "/"));
       }
       // 3. Return PACKAGE_RESOLVE(target, packageURL + "/").
-      return PACKAGE_RESOLVE(target, packageURL + "/");
+      return PACKAGE_RESOLVE(target, join(packageURL, "/"));
     }
 
     // 2. If target split on "/" or "\" contains any "", ".", "..", or "node_modules" segments after the first "." segment, case insensitive and including percent encoded variants, throw an Invalid Package Target error.
