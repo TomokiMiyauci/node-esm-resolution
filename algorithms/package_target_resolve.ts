@@ -1,6 +1,6 @@
 import { InvalidPackageTargetError } from "../error.ts";
 import { type Target } from "./utils.ts";
-import { resolve } from "../deps.ts";
+import { join } from "../deps.ts";
 import PACKAGE_RESOLVE from "./package_resolve.ts";
 
 /**
@@ -42,7 +42,7 @@ export default function PACKAGE_TARGET_RESOLVE(
     // TODO
 
     // 3. Let resolvedTarget be the URL resolution of the concatenation of packageURL and target.
-    const resolvedTarget = resolve(packageURL, target);
+    const resolvedTarget = join(packageURL, target).href;
 
     // 4. Assert: packageURL is contained in resolvedTarget.
 

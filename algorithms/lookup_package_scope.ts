@@ -1,4 +1,4 @@
-import { resolve } from "../deps.ts";
+import { join } from "../deps.ts";
 import { existFile, getParentURL, isFileSystemRoot } from "./utils.ts";
 
 export default function LOOKUP_PACKAGE_SCOPE(url: string): string | null {
@@ -15,7 +15,7 @@ export default function LOOKUP_PACKAGE_SCOPE(url: string): string | null {
     if (scopeURL.endsWith("node_modules")) return null;
 
     // 3. Let pjsonURL be the resolution of "package.json" within scopeURL.
-    const pjsonURL = resolve(scopeURL, "package.json");
+    const pjsonURL = join(scopeURL, "package.json").href;
 
     // 4. if the file at pjsonURL exists, then
     if (existFile(pjsonURL)) {

@@ -1,7 +1,7 @@
 import LOOKUP_PACKAGE_SCOPE from "./lookup_package_scope.ts";
 import READ_PACKAGE_JSON from "./read_package_json.ts";
 import PACKAGE_EXPORTS_RESOLVE from "./package_exports_resolve.ts";
-import { type Target } from "./utils.ts";
+import { defaultConditions, type Exports } from "./utils.ts";
 
 /** Implementation of PACKAGE_SELF_RESOLVE.
  *
@@ -36,7 +36,7 @@ export default function PACKAGE_SELF_RESOLVE(
     return PACKAGE_EXPORTS_RESOLVE(
       packageURL,
       packageSubpath,
-      pjson.exports as Target,
+      pjson.exports as Exports,
       defaultConditions,
     );
   }
@@ -44,5 +44,3 @@ export default function PACKAGE_SELF_RESOLVE(
   // 6. Otherwise, return undefined.
   return undefined;
 }
-
-const defaultConditions = ["node", "import"];

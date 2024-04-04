@@ -5,6 +5,7 @@ import PACKAGE_EXPORTS_RESOLVE from "./package_exports_resolve.ts";
 import {
   defaultConditions,
   existDir,
+  type Exports,
   getParentURL,
   isFileSystemRoot,
   isNodeJsBuildInModuleName,
@@ -109,7 +110,7 @@ export default function PACKAGE_RESOLVE(
       return PACKAGE_EXPORTS_RESOLVE(
         packageURL,
         packageSubpath,
-        pjson.exports,
+        pjson.exports as Exports,
         defaultConditions,
       );
 
