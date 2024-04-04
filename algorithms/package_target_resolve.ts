@@ -1,5 +1,8 @@
-import { InvalidPackageTargetError } from "../error.ts";
-import { type Target } from "./utils.ts";
+import {
+  InvalidModuleSpecifierError,
+  InvalidPackageTargetError,
+} from "../error.ts";
+import { isObject, type Target } from "./utils.ts";
 import { join } from "../deps.ts";
 import PACKAGE_RESOLVE from "./package_resolve.ts";
 
@@ -38,8 +41,13 @@ export default function PACKAGE_TARGET_RESOLVE(
       return PACKAGE_RESOLVE(target, join(packageURL, "/"));
     }
 
+    const splitted = target.split(pattern);
     // 2. If target split on "/" or "\" contains any "", ".", "..", or "node_modules" segments after the first "." segment, case insensitive and including percent encoded variants, throw an Invalid Package Target error.
-    // TODO
+    for (
+      const segment of splitted.slice(splitted.indexOf(".") + 1).map(
+        decodeURIComponent,
+      ).map(toLowerCase)
+    ) if (targets.has(segment)) throw new InvalidPackageTargetError();
 
     // 3. Let resolvedTarget be the URL resolution of the concatenation of packageURL and target.
     const resolvedTarget = join(packageURL, target).href;
@@ -53,41 +61,17 @@ export default function PACKAGE_TARGET_RESOLVE(
     }
 
     // 6. If patternMatch split on "/" or "\" contains any "", ".", "..", or "node_modules" segments, case insensitive and including percent encoded variants, throw an Invalid Module Specifier error.
-    // TODO
+    for (
+      const segment of patternMatch.split(pattern).map(decodeURIComponent).map(
+        toLowerCase,
+      )
+    ) if (targets.has(segment)) throw new InvalidModuleSpecifierError();
 
     // 7. Return the URL resolution of resolvedTarget with every instance of "*" replaced with patternMatch.
     return resolvedTarget.replaceAll("*", patternMatch);
-  } // 3. Otherwise, if target is an Array, then
-  else if (Array.isArray(target)) {
-    // 1. If _target.length is zero, return null.
-    if (!target.length) return null;
-
-    // 2. For each item targetValue in target, do
-    for (const targetValue of target) {
-      // 1. Let resolved be the result of PACKAGE_TARGET_RESOLVE( packageURL, targetValue, patternMatch, isImports, conditions), continuing the loop on any Invalid Package Target error.
-      try {
-        const resolved = PACKAGE_TARGET_RESOLVE(
-          packageURL,
-          targetValue,
-          patternMatch,
-          isImports,
-          conditions,
-        );
-
-        // 2. If resolved is undefined, continue the loop.
-        if (resolved === undefined) continue;
-
-        // 3. Return resolved.
-        return resolved;
-      } catch {
-        // continuing the loop on any Invalid Package Target error.
-      }
-    }
-    // 3. Return or throw the last fallback resolution null return or error.
-    return null;
 
     // 2. Otherwise, if target is a non-null Object, then
-  } else if (typeof target === "object" && target !== null) {
+  } else if (isObject(target)) {
     // 1. If target contains any index property keys, as defined in ECMA-262 6.1.7 Array Index, throw an Invalid Package Configuration error.
     // TODO
 
@@ -117,9 +101,44 @@ export default function PACKAGE_TARGET_RESOLVE(
 
     // 3. Return undefined.
     return undefined;
+  } // 3. Otherwise, if target is an Array, then
+  else if (Array.isArray(target)) {
+    // 1. If _target.length is zero, return null.
+    if (!target.length) return null;
+
+    // 2. For each item targetValue in target, do
+    for (const targetValue of target) {
+      // 1. Let resolved be the result of PACKAGE_TARGET_RESOLVE( packageURL, targetValue, patternMatch, isImports, conditions), continuing the loop on any Invalid Package Target error.
+      try {
+        const resolved = PACKAGE_TARGET_RESOLVE(
+          packageURL,
+          targetValue,
+          patternMatch,
+          isImports,
+          conditions,
+        );
+
+        // 2. If resolved is undefined, continue the loop.
+        if (resolved === undefined) continue;
+
+        // 3. Return resolved.
+        return resolved;
+      } catch {
+        // continuing the loop on any Invalid Package Target error.
+      }
+    }
+    // 3. Return or throw the last fallback resolution null return or error.
+    return null;
   } // 4. Otherwise, if target is null, return null.
   else if (target === null) return null;
 
   // 5. Otherwise throw an Invalid Package Target error.
   throw new InvalidPackageTargetError();
+}
+
+const targets = new Set<string>(["", ".", "..", "node_modules"]);
+const pattern = /[\/\\]/;
+
+function toLowerCase(input: string): string {
+  return input.toLowerCase();
 }
