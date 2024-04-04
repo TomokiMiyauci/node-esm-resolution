@@ -8,10 +8,9 @@ import {
   type Exports,
   getParentURL,
   isFileSystemRoot,
-  isNodeJsBuildInModuleName,
   secondIndexOf,
 } from "./utils.ts";
-import { join } from "../deps.ts";
+import { buildInModules, join } from "../deps.ts";
 
 /**
  * @throws {InvalidModuleSpecifierError}
@@ -30,7 +29,7 @@ export default function PACKAGE_RESOLVE(
   }
 
   // 3. If packageSpecifier is a Node.js builtin module name, then
-  if (isNodeJsBuildInModuleName(packageSpecifier)) {
+  if (buildInModules.has(packageSpecifier)) {
     // 1. Return the string "node:" concatenated with packageSpecifier.
     return `node:${packageSpecifier}`;
   }
