@@ -1,4 +1,4 @@
-import { escape, existsSync } from "../deps.ts";
+import { escape, existsSync, join, normalize } from "../deps.ts";
 
 export type Target =
   | string
@@ -32,7 +32,6 @@ export function isFileSystemRoot(url: URL): boolean {
 }
 
 export function existFile(url: URL): boolean {
-  console.log(url);
   return existsSync(url, { isFile: true });
 }
 
@@ -62,4 +61,8 @@ export const defaultConditions = ["node", "import"];
 export function isObject(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" &&
     value.constructor === Object;
+}
+
+export function getParentURL(url: URL): URL {
+  return normalize(join(url, "..", "/"));
 }

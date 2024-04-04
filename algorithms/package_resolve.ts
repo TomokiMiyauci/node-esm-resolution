@@ -6,6 +6,7 @@ import {
   defaultConditions,
   existDir,
   type Exports,
+  getParentURL,
   isFileSystemRoot,
   secondIndexOf,
 } from "./utils.ts";
@@ -89,7 +90,7 @@ export default function PACKAGE_RESOLVE(
     const packageURL = new URL("node_modules/" + packageName, parentURL);
 
     // 2. Set parentURL to the parent folder URL of parentURL.
-    parentURL = new URL("..", parentURL);
+    parentURL = getParentURL(parentURL);
 
     // 3. If the folder at packageURL does not exist, then
     if (!existDir(packageURL)) {

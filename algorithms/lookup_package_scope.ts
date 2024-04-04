@@ -1,5 +1,5 @@
 import { join } from "../deps.ts";
-import { existFile, isFileSystemRoot } from "./utils.ts";
+import { existFile, getParentURL, isFileSystemRoot } from "./utils.ts";
 
 export default function LOOKUP_PACKAGE_SCOPE(url: URL): URL | null {
   // 1. Let scopeURL be url.
@@ -9,7 +9,7 @@ export default function LOOKUP_PACKAGE_SCOPE(url: URL): URL | null {
   while (!isFileSystemRoot(scopeURL)) {
     // 1. Set scopeURL to the parent URL of scopeURL.
     // @remarks: Probably should be done last.
-    scopeURL = new URL("..", scopeURL);
+    scopeURL = getParentURL(scopeURL);
 
     const pathSegments = scopeURL.pathname.split("/");
     // 2. If scopeURL ends in a "node_modules" path segment, return null.
