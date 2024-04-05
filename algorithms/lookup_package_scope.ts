@@ -7,11 +7,8 @@ export default function LOOKUP_PACKAGE_SCOPE(url: URL): URL | null {
 
   // 2. While scopeURL is not the file system root,
   while (!isFileSystemRoot(scopeURL)) {
-    // 1. Set scopeURL to the parent URL of scopeURL.
-    // @remarks: Probably should be done last.
-    scopeURL = getParentURL(scopeURL);
-
     const pathSegments = scopeURL.pathname.split("/");
+
     // 2. If scopeURL ends in a "node_modules" path segment, return null.
     if (pathSegments[pathSegments.length - 1] === "node_modules") return null;
 
@@ -23,6 +20,10 @@ export default function LOOKUP_PACKAGE_SCOPE(url: URL): URL | null {
       // 1. Return scopeURL.
       return scopeURL;
     }
+
+    // 1. Set scopeURL to the parent URL of scopeURL.
+    // @remarks: Probably should be done last.
+    scopeURL = getParentURL(scopeURL);
   }
 
   // 3. Return null.
