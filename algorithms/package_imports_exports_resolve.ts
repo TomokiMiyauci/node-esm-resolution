@@ -1,6 +1,7 @@
 import { hasSinglePattern, type Target } from "./utils.ts";
 import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PATTERN_KEY_COMPARE from "./pattern_key_compare.ts";
+import { type Context } from "./context.ts";
 
 /**
  * @throws {InvalidPackageTargetError}
@@ -11,6 +12,7 @@ export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
   packageURL: URL,
   isImports: boolean,
   conditions: string[],
+  ctx: Context,
 ): string | null | undefined {
   // 1. If matchKey is a key of matchObj and does not contain "*", then
   if (matchKey in matchObj && !matchKey.includes("*")) {
@@ -24,6 +26,7 @@ export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
       null,
       isImports,
       conditions,
+      ctx,
     );
   }
 
@@ -66,6 +69,7 @@ export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
           patternMatch,
           isImports,
           conditions,
+          ctx,
         );
       }
     }

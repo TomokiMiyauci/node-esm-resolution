@@ -1,7 +1,11 @@
 import { join } from "../deps.ts";
-import { existFile, getParentURL, isFileSystemRoot } from "./utils.ts";
+import { getParentURL, isFileSystemRoot } from "./utils.ts";
+import { type Context } from "./context.ts";
 
-export default function LOOKUP_PACKAGE_SCOPE(url: URL): URL | null {
+export default function LOOKUP_PACKAGE_SCOPE(
+  url: URL,
+  ctx: Context,
+): URL | null {
   // 1. Let scopeURL be url.
   let scopeURL = url;
 
@@ -16,7 +20,7 @@ export default function LOOKUP_PACKAGE_SCOPE(url: URL): URL | null {
     const pjsonURL = join(scopeURL, "package.json");
 
     // 4. if the file at pjsonURL exists, then
-    if (existFile(pjsonURL)) {
+    if (ctx.exist(pjsonURL)) {
       // 1. Return scopeURL.
       return scopeURL;
     }

@@ -2,6 +2,7 @@ import LOOKUP_PACKAGE_SCOPE from "./lookup_package_scope.ts";
 import READ_PACKAGE_JSON from "./read_package_json.ts";
 import PACKAGE_EXPORTS_RESOLVE from "./package_exports_resolve.ts";
 import { defaultConditions, type Exports } from "./utils.ts";
+import { type Context } from "./context.ts";
 
 /** Implementation of PACKAGE_SELF_RESOLVE.
  *
@@ -11,9 +12,12 @@ export default function PACKAGE_SELF_RESOLVE(
   packageName: string,
   packageSubpath: string,
   parentURL: URL,
+  ctx: Context,
 ): string | undefined {
+  ctx.conditions ??= defaultConditions;
+
   // 1. Let packageURL be the result of LOOKUP_PACKAGE_SCOPE(parentURL).
-  const packageURL = LOOKUP_PACKAGE_SCOPE(parentURL);
+  const packageURL = LOOKUP_PACKAGE_SCOPE(parentURL, ctx);
 
   // 2. If packageURL is null, then
   if (packageURL === null) {
@@ -22,10 +26,10 @@ export default function PACKAGE_SELF_RESOLVE(
   }
 
   // 3. Let pjson be the result of READ_PACKAGE_JSON(packageURL).
-  const pjson = READ_PACKAGE_JSON(packageURL);
+  const pjson = READ_PACKAGE_JSON(packageURL, ctx);
 
   // 4. If pjson is null or if pjson.exports is null or undefined, then
-  if (pjson === null || !pjson.exports) {
+  if (pjson === null || (!pjson.exports)) {
     // 1. Return undefined.
     return undefined;
   }
@@ -37,7 +41,8 @@ export default function PACKAGE_SELF_RESOLVE(
       packageURL,
       packageSubpath,
       pjson.exports as Exports,
-      defaultConditions,
+      ctx.conditions,
+      ctx,
     );
   }
 

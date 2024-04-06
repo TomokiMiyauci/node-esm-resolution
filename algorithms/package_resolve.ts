@@ -4,13 +4,13 @@ import READ_PACKAGE_JSON from "./read_package_json.ts";
 import PACKAGE_EXPORTS_RESOLVE from "./package_exports_resolve.ts";
 import {
   defaultConditions,
-  existDir,
   type Exports,
   getParentURL,
   isFileSystemRoot,
   secondIndexOf,
 } from "./utils.ts";
 import { buildInModules, join } from "../deps.ts";
+import { type Context } from "./context.ts";
 
 /**
  * @throws {InvalidModuleSpecifierError}
@@ -18,7 +18,10 @@ import { buildInModules, join } from "../deps.ts";
 export default function PACKAGE_RESOLVE(
   packageSpecifier: string,
   parentURL: URL,
+  ctx: Context,
 ): string {
+  ctx.conditions ??= defaultConditions;
+
   // 1. Let packageName be undefined.
   let packageName: string;
 
@@ -78,7 +81,12 @@ export default function PACKAGE_RESOLVE(
   }
 
   // 9. Let selfUrl be the result of PACKAGE_SELF_RESOLVE(packageName, packageSubpath, parentURL).
-  const selfUrl = PACKAGE_SELF_RESOLVE(packageName, packageSubpath, parentURL);
+  const selfUrl = PACKAGE_SELF_RESOLVE(
+    packageName,
+    packageSubpath,
+    parentURL,
+    ctx,
+  );
 
   // 10. If selfUrl is not undefined, return selfUrl.
   if (selfUrl !== undefined) return selfUrl;
@@ -87,30 +95,31 @@ export default function PACKAGE_RESOLVE(
   while (!isFileSystemRoot(parentURL)) {
     // 1. Let packageURL be the URL resolution of "node_modules/" concatenated with packageSpecifier, relative to parentURL.
     // @remarks: Maybe not `packageSpecifier`, but packageName
-    const packageURL = new URL("node_modules/" + packageName, parentURL);
+    const packageURL = join(parentURL, "node_modules/", packageName);
 
     // 2. Set parentURL to the parent folder URL of parentURL.
     parentURL = getParentURL(parentURL);
 
     // 3. If the folder at packageURL does not exist, then
-    if (!existDir(packageURL)) {
+    if (!ctx.exist(packageURL)) {
       // 1. Continue the next loop iteration.
       continue;
     }
 
     // 4. Let pjson be the result of READ_PACKAGE_JSON(packageURL).
-    const pjson = READ_PACKAGE_JSON(packageURL);
+    const pjson = READ_PACKAGE_JSON(packageURL, ctx);
 
     // 5. If pjson is not null and pjson.exports is not null or undefined, then
     if (
-      pjson !== null && (pjson.exports !== null || pjson.exports !== undefined)
+      pjson !== null && (pjson.exports !== null && pjson.exports !== undefined)
     ) {
       // 1. Return the result of PACKAGE_EXPORTS_RESOLVE(packageURL, packageSubpath, pjson.exports, defaultConditions).
       return PACKAGE_EXPORTS_RESOLVE(
         packageURL,
         packageSubpath,
         pjson.exports as Exports,
-        defaultConditions,
+        ctx.conditions,
+        ctx,
       );
 
       // 6. Otherwise, if packageSubpath is equal to ".", then

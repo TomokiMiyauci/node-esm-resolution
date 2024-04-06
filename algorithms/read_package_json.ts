@@ -1,19 +1,20 @@
 import { InvalidPackageConfigurationError } from "../error.ts";
 import { join } from "../deps.ts";
-import { readFile } from "./utils.ts";
+import { type Context } from "./context.ts";
 
 /**
  * @throws {InvalidPackageConfigurationError}
  */
 export default function READ_PACKAGE_JSON(
   packageURL: URL,
+  ctx: Context,
 ): Record<string, unknown> | null {
   // 1. Let pjsonURL be the resolution of "package.json" within packageURL.
   const pjsonURL = join(packageURL, "package.json");
 
-  const file = readFile(pjsonURL);
+  const file = ctx.readFile(pjsonURL);
   // 2. If the file at pjsonURL does not exist, then
-  if (file === null) {
+  if (file === null || file === undefined) {
     // 1. Return null.
     return null;
   }

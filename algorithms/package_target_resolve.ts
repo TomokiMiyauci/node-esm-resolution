@@ -5,6 +5,7 @@ import {
 import { isObject, type Target } from "./utils.ts";
 import { join } from "../deps.ts";
 import PACKAGE_RESOLVE from "./package_resolve.ts";
+import { type Context } from "./context.ts";
 
 /**
  * @throws {InvalidPackageTargetError}
@@ -15,6 +16,7 @@ export default function PACKAGE_TARGET_RESOLVE(
   patternMatch: string | null,
   isImports: boolean,
   conditions: string[],
+  ctx: Context,
 ): string | null | undefined {
   // 1. If target is a String, then
   if (typeof target === "string") {
@@ -35,10 +37,10 @@ export default function PACKAGE_TARGET_RESOLVE(
         const replaced = target.replaceAll("*", patternMatch);
 
         // 1. Return PACKAGE_RESOLVE(target with every instance of "*" replaced by patternMatch, packageURL + "/").
-        return PACKAGE_RESOLVE(replaced, join(packageURL, "/"));
+        return PACKAGE_RESOLVE(replaced, join(packageURL, "/"), ctx);
       }
       // 3. Return PACKAGE_RESOLVE(target, packageURL + "/").
-      return PACKAGE_RESOLVE(target, join(packageURL, "/"));
+      return PACKAGE_RESOLVE(target, join(packageURL, "/"), ctx);
     }
 
     const splitted = target.split(pattern);
@@ -89,6 +91,7 @@ export default function PACKAGE_TARGET_RESOLVE(
           patternMatch,
           isImports,
           conditions,
+          ctx,
         );
 
         // 3. If resolved is equal to undefined, continue the loop.
@@ -116,6 +119,7 @@ export default function PACKAGE_TARGET_RESOLVE(
           patternMatch,
           isImports,
           conditions,
+          ctx,
         );
 
         // 2. If resolved is undefined, continue the loop.

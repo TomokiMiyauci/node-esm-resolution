@@ -11,6 +11,7 @@ import {
 } from "./utils.ts";
 import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PACKAGE_IMPORTS_EXPORTS_RESOLVE from "./package_imports_exports_resolve.ts";
+import { type Context } from "./context.ts";
 
 /**
  * @throws {InvalidPackageConfigurationError}
@@ -20,6 +21,7 @@ export default function PACKAGE_EXPORTS_RESOLVE(
   subpath: string,
   exports: Exports,
   conditions: string[],
+  ctx: Context,
 ): string {
   // 1. If exports is an Object with both a key starting with "." and a key not starting with ".", throw an Invalid Package Configuration error.
   if (isObject(exports)) {
@@ -60,6 +62,7 @@ export default function PACKAGE_EXPORTS_RESOLVE(
         null,
         false,
         conditions,
+        ctx,
       );
       // 2. If resolved is not null or undefined, return resolved.
       if (resolved) return resolved;
@@ -77,6 +80,7 @@ export default function PACKAGE_EXPORTS_RESOLVE(
       packageURL,
       false,
       conditions,
+      ctx,
     );
     // 3. If resolved is not null or undefined, return resolved.
     if (resolved) return resolved;

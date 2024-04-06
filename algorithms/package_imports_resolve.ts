@@ -6,11 +6,13 @@ import {
   PackageImportNotDefinedError,
 } from "../error.ts";
 import { isObject } from "./utils.ts";
+import { type Context } from "./context.ts";
 
 export default function PACKAGE_IMPORTS_RESOLVE(
   specifier: `#${string}`, // 1. Assert: specifier begins with "#".
   parentURL: URL,
   conditions: string[],
+  ctx: Context,
 ): string {
   // 2. If specifier is exactly equal to "#" or starts with "#/", then
   if (specifier === "#" || specifier.startsWith("#/")) {
@@ -19,12 +21,12 @@ export default function PACKAGE_IMPORTS_RESOLVE(
   }
 
   // 3. Let packageURL be the result of LOOKUP_PACKAGE_SCOPE(parentURL).
-  const packageURL = LOOKUP_PACKAGE_SCOPE(parentURL);
+  const packageURL = LOOKUP_PACKAGE_SCOPE(parentURL, ctx);
 
   // 4. If packageURL is not null, then
   if (packageURL !== null) {
     // 1. Let pjson be the result of READ_PACKAGE_JSON(packageURL).
-    const pjson = READ_PACKAGE_JSON(packageURL);
+    const pjson = READ_PACKAGE_JSON(packageURL, ctx);
 
     // 2. If pjson.imports is a non-null Object, then
     if (isObject(pjson?.imports)) {
@@ -35,6 +37,7 @@ export default function PACKAGE_IMPORTS_RESOLVE(
         packageURL,
         true,
         conditions,
+        ctx,
       );
       // 2. If resolved is not null or undefined, return resolved.
       if (resolved !== null && resolved !== undefined) return resolved;
