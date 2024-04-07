@@ -4,7 +4,7 @@ export interface Context {
   ): Promise<string | null | undefined> | string | null | undefined;
   exist(url: URL): Promise<boolean> | boolean;
   isDir(url: URL): Promise<boolean>;
-  readPath(url: URL): Promise<URL>;
+  realUrl(url: URL): Promise<URL>;
 
   /**
    * @default ["node", "import"]

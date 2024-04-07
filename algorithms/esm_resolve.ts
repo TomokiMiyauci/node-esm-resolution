@@ -8,7 +8,7 @@ import { join } from "../deps.ts";
 import { UnsupportedDirectoryImportError } from "../error.ts";
 
 export interface ResolveResult {
-  resolved: string;
+  resolved: URL;
   format: Format | undefined;
 }
 
@@ -19,18 +19,18 @@ export default async function ESM_RESOLVE(
 ): Promise<ResolveResult> {
   ctx.conditions ??= defaultConditions;
   // 1. Let resolved be undefined.
-  let resolved: string;
+  let resolved: URL;
 
   // 2. If specifier is a valid URL, then
   if (URL.canParse(specifier)) {
     // 1. Set resolved to the result of parsing and reserializing specifier as a URL.
-    resolved = new URL(specifier).toString();
+    resolved = new URL(specifier);
   } // 3. Otherwise, if specifier starts with "/", "./", or "../", then
   else if (
     ["/", "./", "../"].some((value) => specifier.startsWith(value))
   ) {
     // 1. Set resolved to the URL resolution of specifier relative to parentURL.
-    resolved = join(parentURL, specifier).toString();
+    resolved = join(parentURL, specifier);
   } // 4. Otherwise, if specifier starts with "#", then
   else if (specifier.startsWith("#")) {
     // 1. Set resolved to the result of PACKAGE_IMPORTS_RESOLVE(specifier, parentURL, defaultConditions).
@@ -51,7 +51,7 @@ export default async function ESM_RESOLVE(
   let format: Format | undefined;
 
   // // 7. If resolved is a "file:" URL, then
-  if (resolved.startsWith("file:")) {
+  if (resolved.protocol === "file:") {
     const pattern = /%2F|%5C/;
     // 1. If resolved contains any percent encodings of "/" or "\" ("%2F" and "%5C" respectively), then
     if (pattern.test(resolved.toString())) {
@@ -72,7 +72,7 @@ export default async function ESM_RESOLVE(
     }
 
     // 4. Set resolved to the real path of resolved, maintaining the same URL querystring and fragment components.
-    resolved = (await ctx.readPath(new URL(resolved))).toString();
+    resolved = await ctx.realUrl(new URL(resolved));
 
     //   // 5. Set format to the result of ESM_FILE_FORMAT(resolved).
     format = await ESM_FILE_FORMAT(new URL(resolved), ctx);

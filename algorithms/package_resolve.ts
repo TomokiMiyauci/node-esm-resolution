@@ -19,7 +19,7 @@ export default async function PACKAGE_RESOLVE(
   packageSpecifier: string,
   parentURL: URL,
   ctx: Context,
-): Promise<string> {
+): Promise<URL> {
   ctx.conditions ??= defaultConditions;
 
   // 1. Let packageName be undefined.
@@ -34,7 +34,7 @@ export default async function PACKAGE_RESOLVE(
   // 3. If packageSpecifier is a Node.js builtin module name, then
   if (buildInModules.has(packageSpecifier)) {
     // 1. Return the string "node:" concatenated with packageSpecifier.
-    return `node:${packageSpecifier}`;
+    return new URL(`node:${packageSpecifier}`);
   }
 
   // 4. If packageSpecifier does not start with "@", then
@@ -127,13 +127,13 @@ export default async function PACKAGE_RESOLVE(
       // 1. If pjson.main is a string, then
       if (pjson !== null && typeof pjson.main === "string") {
         // 1. Return the URL resolution of main in packageURL.
-        return join(packageURL, pjson.main).toString();
+        return join(packageURL, pjson.main);
       }
     }
 
     // 7. Otherwise,
     // 1. Return the URL resolution of packageSubpath in packageURL.
-    return join(packageURL, packageSubpath).toString();
+    return join(packageURL, packageSubpath);
   }
 
   // 12. Throw a Module Not Found error.

@@ -13,7 +13,7 @@ export default async function PACKAGE_SELF_RESOLVE(
   packageSubpath: string,
   parentURL: URL,
   ctx: Context,
-): Promise<string | undefined> {
+): Promise<URL | undefined> {
   ctx.conditions ??= defaultConditions;
 
   // 1. Let packageURL be the result of LOOKUP_PACKAGE_SCOPE(parentURL).

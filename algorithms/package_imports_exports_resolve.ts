@@ -13,7 +13,7 @@ export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
   isImports: boolean,
   conditions: string[],
   ctx: Context,
-): Promise<string | null | undefined> | string | null | undefined {
+): Promise<URL | null | undefined> | URL | null | undefined {
   // 1. If matchKey is a key of matchObj and does not contain "*", then
   if (matchKey in matchObj && !matchKey.includes("*")) {
     // 1. Let target be the value of matchObj[matchKey].

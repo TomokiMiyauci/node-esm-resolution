@@ -17,7 +17,7 @@ export default function PACKAGE_TARGET_RESOLVE(
   isImports: boolean,
   conditions: string[],
   ctx: Context,
-): Promise<string | null | undefined> | string | null | undefined {
+): Promise<URL | null | undefined> | URL | null | undefined {
   // 1. If target is a String, then
   if (typeof target === "string") {
     // 1. If target does not start with "./", then
@@ -52,7 +52,7 @@ export default function PACKAGE_TARGET_RESOLVE(
     ) if (targets.has(segment)) throw new InvalidPackageTargetError();
 
     // 3. Let resolvedTarget be the URL resolution of the concatenation of packageURL and target.
-    const resolvedTarget = join(packageURL, target).href;
+    const resolvedTarget = join(packageURL, target);
 
     // 4. Assert: packageURL is contained in resolvedTarget.
 
@@ -70,7 +70,7 @@ export default function PACKAGE_TARGET_RESOLVE(
     ) if (targets.has(segment)) throw new InvalidModuleSpecifierError();
 
     // 7. Return the URL resolution of resolvedTarget with every instance of "*" replaced with patternMatch.
-    return resolvedTarget.replaceAll("*", patternMatch);
+    return new URL(resolvedTarget.toString().replaceAll("*", patternMatch));
 
     // 2. Otherwise, if target is a non-null Object, then
   } else if (isObject(target)) {

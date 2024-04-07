@@ -13,7 +13,7 @@ export default async function PACKAGE_IMPORTS_RESOLVE(
   parentURL: URL,
   conditions: string[],
   ctx: Context,
-): Promise<string> {
+): Promise<URL> {
   // 2. If specifier is exactly equal to "#" or starts with "#/", then
   if (specifier === "#" || specifier.startsWith("#/")) {
     // 1. Throw an Invalid Module Specifier error.
