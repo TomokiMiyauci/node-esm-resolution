@@ -11,7 +11,7 @@ export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
   matchObj: Record<string, Target>,
   packageURL: URL,
   isImports: boolean,
-  conditions: string[],
+  conditions: Iterable<string>,
   ctx: Context,
 ): Promise<URL | null | undefined> | URL | null | undefined {
   // 1. If matchKey is a key of matchObj and does not contain "*", then

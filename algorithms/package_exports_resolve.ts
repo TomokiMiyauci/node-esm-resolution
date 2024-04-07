@@ -20,7 +20,7 @@ export default async function PACKAGE_EXPORTS_RESOLVE(
   packageURL: URL,
   subpath: string,
   exports: Exports,
-  conditions: string[],
+  conditions: Iterable<string>,
   ctx: Context,
 ): Promise<URL> {
   // 1. If exports is an Object with both a key starting with "." and a key not starting with ".", throw an Invalid Package Configuration error.

@@ -15,7 +15,7 @@ export default function PACKAGE_TARGET_RESOLVE(
   target: Target,
   patternMatch: string | null,
   isImports: boolean,
-  conditions: string[],
+  conditions: Iterable<string>,
   ctx: Context,
 ): Promise<URL | null | undefined> | URL | null | undefined {
   // 1. If target is a String, then
@@ -80,7 +80,7 @@ export default function PACKAGE_TARGET_RESOLVE(
     // 2. For each property p of target, in object insertion order as,
     for (const p in target) {
       // 1. If p equals "default" or conditions contains an entry for p, then
-      if (p === "default" || conditions.includes(p)) {
+      if (p === "default" || new Set(conditions).has(p)) {
         // 1. Let targetValue be the value of the p property in target.
         const targetValue = target[p];
 

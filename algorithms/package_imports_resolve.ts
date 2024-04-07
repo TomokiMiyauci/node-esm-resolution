@@ -11,7 +11,7 @@ import { type Context } from "./context.ts";
 export default async function PACKAGE_IMPORTS_RESOLVE(
   specifier: `#${string}`, // 1. Assert: specifier begins with "#".
   parentURL: URL,
-  conditions: string[],
+  conditions: Iterable<string>,
   ctx: Context,
 ): Promise<URL> {
   // 2. If specifier is exactly equal to "#" or starts with "#/", then
