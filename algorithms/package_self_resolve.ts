@@ -8,16 +8,16 @@ import { type Context } from "./context.ts";
  *
  * @throws {InvalidPackageConfigurationError}
  */
-export default function PACKAGE_SELF_RESOLVE(
+export default async function PACKAGE_SELF_RESOLVE(
   packageName: string,
   packageSubpath: string,
   parentURL: URL,
   ctx: Context,
-): string | undefined {
+): Promise<string | undefined> {
   ctx.conditions ??= defaultConditions;
 
   // 1. Let packageURL be the result of LOOKUP_PACKAGE_SCOPE(parentURL).
-  const packageURL = LOOKUP_PACKAGE_SCOPE(parentURL, ctx);
+  const packageURL = await LOOKUP_PACKAGE_SCOPE(parentURL, ctx);
 
   // 2. If packageURL is null, then
   if (packageURL === null) {
@@ -26,7 +26,7 @@ export default function PACKAGE_SELF_RESOLVE(
   }
 
   // 3. Let pjson be the result of READ_PACKAGE_JSON(packageURL).
-  const pjson = READ_PACKAGE_JSON(packageURL, ctx);
+  const pjson = await READ_PACKAGE_JSON(packageURL, ctx);
 
   // 4. If pjson is null or if pjson.exports is null or undefined, then
   if (pjson === null || (!pjson.exports)) {

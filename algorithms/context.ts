@@ -1,10 +1,15 @@
 export interface Context {
-  readFile(url: URL): string | null | undefined;
-  exist(url: URL): boolean;
-  readPath(url: URL): URL;
+  readFile(
+    url: URL,
+  ): Promise<string | null | undefined> | string | null | undefined;
+  exist(url: URL): Promise<boolean> | boolean;
+  isDir(url: URL): Promise<boolean>;
+  readPath(url: URL): Promise<URL>;
 
   /**
    * @default ["node", "import"]
    */
   conditions?: string[];
+
+  experimentalWasmModules?: boolean;
 }

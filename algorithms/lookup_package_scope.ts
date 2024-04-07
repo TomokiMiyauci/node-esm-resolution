@@ -2,15 +2,18 @@ import { join } from "../deps.ts";
 import { getParentURL, isFileSystemRoot } from "./utils.ts";
 import { type Context } from "./context.ts";
 
-export default function LOOKUP_PACKAGE_SCOPE(
+export default async function LOOKUP_PACKAGE_SCOPE(
   url: URL,
-  ctx: Context,
-): URL | null {
+  ctx: Pick<Context, "exist">,
+): Promise<URL | null> {
   // 1. Let scopeURL be url.
   let scopeURL = url;
 
   // 2. While scopeURL is not the file system root,
   while (!isFileSystemRoot(scopeURL)) {
+    // 1. Set scopeURL to the parent URL of scopeURL.
+    scopeURL = getParentURL(scopeURL);
+
     const pathSegments = scopeURL.pathname.split("/");
 
     // 2. If scopeURL ends in a "node_modules" path segment, return null.
@@ -20,14 +23,10 @@ export default function LOOKUP_PACKAGE_SCOPE(
     const pjsonURL = join(scopeURL, "package.json");
 
     // 4. if the file at pjsonURL exists, then
-    if (ctx.exist(pjsonURL)) {
+    if (await ctx.exist(pjsonURL)) {
       // 1. Return scopeURL.
       return scopeURL;
     }
-
-    // 1. Set scopeURL to the parent URL of scopeURL.
-    // @remarks: Probably should be done last.
-    scopeURL = getParentURL(scopeURL);
   }
 
   // 3. Return null.

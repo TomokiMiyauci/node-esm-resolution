@@ -8,12 +8,12 @@ import {
 import { isObject } from "./utils.ts";
 import { type Context } from "./context.ts";
 
-export default function PACKAGE_IMPORTS_RESOLVE(
+export default async function PACKAGE_IMPORTS_RESOLVE(
   specifier: `#${string}`, // 1. Assert: specifier begins with "#".
   parentURL: URL,
   conditions: string[],
   ctx: Context,
-): string {
+): Promise<string> {
   // 2. If specifier is exactly equal to "#" or starts with "#/", then
   if (specifier === "#" || specifier.startsWith("#/")) {
     // 1. Throw an Invalid Module Specifier error.
@@ -21,17 +21,17 @@ export default function PACKAGE_IMPORTS_RESOLVE(
   }
 
   // 3. Let packageURL be the result of LOOKUP_PACKAGE_SCOPE(parentURL).
-  const packageURL = LOOKUP_PACKAGE_SCOPE(parentURL, ctx);
+  const packageURL = await LOOKUP_PACKAGE_SCOPE(parentURL, ctx);
 
   // 4. If packageURL is not null, then
   if (packageURL !== null) {
     // 1. Let pjson be the result of READ_PACKAGE_JSON(packageURL).
-    const pjson = READ_PACKAGE_JSON(packageURL, ctx);
+    const pjson = await READ_PACKAGE_JSON(packageURL, ctx);
 
     // 2. If pjson.imports is a non-null Object, then
     if (isObject(pjson?.imports)) {
       // 1. Let resolved be the result of PACKAGE_IMPORTS_EXPORTS_RESOLVE( specifier, pjson.imports, packageURL, true, conditions).
-      const resolved = PACKAGE_IMPORTS_EXPORTS_RESOLVE(
+      const resolved = await PACKAGE_IMPORTS_EXPORTS_RESOLVE(
         specifier,
         pjson.imports as Record<string, string>,
         packageURL,

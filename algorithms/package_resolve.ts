@@ -15,11 +15,11 @@ import { type Context } from "./context.ts";
 /**
  * @throws {InvalidModuleSpecifierError}
  */
-export default function PACKAGE_RESOLVE(
+export default async function PACKAGE_RESOLVE(
   packageSpecifier: string,
   parentURL: URL,
   ctx: Context,
-): string {
+): Promise<string> {
   ctx.conditions ??= defaultConditions;
 
   // 1. Let packageName be undefined.
@@ -81,7 +81,7 @@ export default function PACKAGE_RESOLVE(
   }
 
   // 9. Let selfUrl be the result of PACKAGE_SELF_RESOLVE(packageName, packageSubpath, parentURL).
-  const selfUrl = PACKAGE_SELF_RESOLVE(
+  const selfUrl = await PACKAGE_SELF_RESOLVE(
     packageName,
     packageSubpath,
     parentURL,
@@ -101,13 +101,13 @@ export default function PACKAGE_RESOLVE(
     parentURL = getParentURL(parentURL);
 
     // 3. If the folder at packageURL does not exist, then
-    if (!ctx.exist(packageURL)) {
+    if (!await ctx.exist(packageURL)) {
       // 1. Continue the next loop iteration.
       continue;
     }
 
     // 4. Let pjson be the result of READ_PACKAGE_JSON(packageURL).
-    const pjson = READ_PACKAGE_JSON(packageURL, ctx);
+    const pjson = await READ_PACKAGE_JSON(packageURL, ctx);
 
     // 5. If pjson is not null and pjson.exports is not null or undefined, then
     if (

@@ -5,14 +5,14 @@ import { type Context } from "./context.ts";
 /**
  * @throws {InvalidPackageConfigurationError}
  */
-export default function READ_PACKAGE_JSON(
+export default async function READ_PACKAGE_JSON(
   packageURL: URL,
-  ctx: Context,
-): Record<string, unknown> | null {
+  ctx: Pick<Context, "readFile">,
+): Promise<Record<string, unknown> | null> {
   // 1. Let pjsonURL be the resolution of "package.json" within packageURL.
   const pjsonURL = join(packageURL, "package.json");
 
-  const file = ctx.readFile(pjsonURL);
+  const file = await ctx.readFile(pjsonURL);
   // 2. If the file at pjsonURL does not exist, then
   if (file === null || file === undefined) {
     // 1. Return null.

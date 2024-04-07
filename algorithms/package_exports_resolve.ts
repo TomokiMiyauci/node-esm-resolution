@@ -16,13 +16,13 @@ import { type Context } from "./context.ts";
 /**
  * @throws {InvalidPackageConfigurationError}
  */
-export default function PACKAGE_EXPORTS_RESOLVE(
+export default async function PACKAGE_EXPORTS_RESOLVE(
   packageURL: URL,
   subpath: string,
   exports: Exports,
   conditions: string[],
   ctx: Context,
-): string {
+): Promise<string> {
   // 1. If exports is an Object with both a key starting with "." and a key not starting with ".", throw an Invalid Package Configuration error.
   if (isObject(exports)) {
     const keys = Object.keys(exports);
@@ -56,7 +56,7 @@ export default function PACKAGE_EXPORTS_RESOLVE(
     // 4. If mainExport is not undefined, then
     if (mainExport !== undefined) {
       // 1. Let resolved be the result of PACKAGE_TARGET_RESOLVE( packageURL, mainExport, null, false, conditions).
-      const resolved = PACKAGE_TARGET_RESOLVE(
+      const resolved = await PACKAGE_TARGET_RESOLVE(
         packageURL,
         mainExport,
         null,
@@ -74,7 +74,7 @@ export default function PACKAGE_EXPORTS_RESOLVE(
   ) {
     // 1. Assert: subpath begins with "./".
     // 2. Let resolved be the result of PACKAGE_IMPORTS_EXPORTS_RESOLVE( subpath, exports, packageURL, false, conditions).
-    const resolved = PACKAGE_IMPORTS_EXPORTS_RESOLVE(
+    const resolved = await PACKAGE_IMPORTS_EXPORTS_RESOLVE(
       subpath,
       exports,
       packageURL,

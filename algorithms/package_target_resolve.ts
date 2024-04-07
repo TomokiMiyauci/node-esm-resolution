@@ -17,7 +17,7 @@ export default function PACKAGE_TARGET_RESOLVE(
   isImports: boolean,
   conditions: string[],
   ctx: Context,
-): string | null | undefined {
+): Promise<string | null | undefined> | string | null | undefined {
   // 1. If target is a String, then
   if (typeof target === "string") {
     // 1. If target does not start with "./", then

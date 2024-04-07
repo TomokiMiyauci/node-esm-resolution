@@ -5,10 +5,10 @@ import { type Context } from "./context.ts";
 
 export type Format = "module" | "commonjs" | "json" | "wasm";
 
-export default function ESM_FILE_FORMAT(
+export default async function ESM_FILE_FORMAT(
   url: URL,
   ctx: Pick<Context, "exist" | "experimentalWasmModules" | "readFile">,
-): Format | undefined {
+): Promise<Format | undefined> {
   const ext = extname(url);
 
   // 1. Assert: url corresponds to an existing file.
@@ -37,10 +37,10 @@ export default function ESM_FILE_FORMAT(
   }
 
   // 6. Let packageURL be the result of LOOKUP_PACKAGE_SCOPE(url).
-  const packageURL = LOOKUP_PACKAGE_SCOPE(url, ctx);
+  const packageURL = await LOOKUP_PACKAGE_SCOPE(url, ctx);
 
   // 7. Let pjson be the result of READ_PACKAGE_JSON(packageURL).
-  const pjson = packageURL && READ_PACKAGE_JSON(packageURL, ctx);
+  const pjson = packageURL && await READ_PACKAGE_JSON(packageURL, ctx);
 
   // 8. Let packageType be null.
   let packageType: "module" | "commonjs" | null = null;
