@@ -21,7 +21,7 @@ export default async function PACKAGE_EXPORTS_RESOLVE(
   subpath: string,
   exports: Exports,
   conditions: Iterable<string>,
-  ctx: Context,
+  ctx: Pick<Context, "exist" | "readFile">,
 ): Promise<URL> {
   // 1. If exports is an Object with both a key starting with "." and a key not starting with ".", throw an Invalid Package Configuration error.
   if (isObject(exports)) {
@@ -87,5 +87,9 @@ export default async function PACKAGE_EXPORTS_RESOLVE(
   }
 
   // 4. Throw a Package Path Not Exported error.
-  throw new PackagePathNotExportedError();
+  throw new PackagePathNotExportedError(
+    `Package subpath '${subpath}' is not defined by "exports" in ${
+      packageURL + "/package.json"
+    }`,
+  );
 }

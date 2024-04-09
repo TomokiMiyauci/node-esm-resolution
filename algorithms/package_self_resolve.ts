@@ -12,7 +12,7 @@ export default async function PACKAGE_SELF_RESOLVE(
   packageName: string,
   packageSubpath: string,
   parentURL: URL,
-  ctx: Context,
+  ctx: Pick<Context, "conditions" | "exist" | "readFile">,
 ): Promise<URL | undefined> {
   ctx.conditions ??= defaultConditions;
 

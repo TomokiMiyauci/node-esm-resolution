@@ -12,7 +12,7 @@ export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
   packageURL: URL,
   isImports: boolean,
   conditions: Iterable<string>,
-  ctx: Context,
+  ctx: Pick<Context, "exist" | "readFile">,
 ): Promise<URL | null | undefined> | URL | null | undefined {
   // 1. If matchKey is a key of matchObj and does not contain "*", then
   if (matchKey in matchObj && !matchKey.includes("*")) {

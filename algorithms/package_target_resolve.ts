@@ -16,7 +16,7 @@ export default function PACKAGE_TARGET_RESOLVE(
   patternMatch: string | null,
   isImports: boolean,
   conditions: Iterable<string>,
-  ctx: Context,
+  ctx: Pick<Context, "exist" | "readFile">,
 ): Promise<URL | null | undefined> | URL | null | undefined {
   // 1. If target is a String, then
   if (typeof target === "string") {
