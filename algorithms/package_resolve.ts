@@ -9,7 +9,7 @@ import {
   isFileSystemRoot,
   secondIndexOf,
 } from "./utils.ts";
-import { buildInModules, join } from "../deps.ts";
+import { isBuiltin, join } from "../deps.ts";
 import { type Context } from "./context.ts";
 
 /**
@@ -32,7 +32,7 @@ export default async function PACKAGE_RESOLVE(
   }
 
   // 3. If packageSpecifier is a Node.js builtin module name, then
-  if (buildInModules.has(packageSpecifier)) {
+  if (isBuiltin(packageSpecifier)) {
     // 1. Return the string "node:" concatenated with packageSpecifier.
     return new URL(`node:${packageSpecifier}`);
   }
