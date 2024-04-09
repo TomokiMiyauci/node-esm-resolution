@@ -95,7 +95,7 @@ export default async function PACKAGE_RESOLVE(
   while (!isFileSystemRoot(parentURL)) {
     // 1. Let packageURL be the URL resolution of "node_modules/" concatenated with packageSpecifier, relative to parentURL.
     // @remarks: Maybe not `packageSpecifier`, but packageName
-    const packageURL = join(parentURL, "node_modules/", packageName);
+    const packageURL = new URL("node_modules/" + packageName, parentURL);
 
     // 2. Set parentURL to the parent folder URL of parentURL.
     parentURL = getParentURL(parentURL);
