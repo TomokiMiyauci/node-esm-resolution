@@ -15,8 +15,8 @@ export function isStartWithPeriod(input: string): input is `.${string}` {
   return input.startsWith(".");
 }
 
-export function isFileSystemRoot(url: URL): boolean {
-  return url.pathname === "/";
+export function isFileSystemRoot(url: URL | string): boolean {
+  return new URL(url).pathname === "/";
 }
 
 export function hasSinglePattern(input: string, pattern: string): boolean {
@@ -43,6 +43,6 @@ export function isObject(value: unknown): value is Record<string, unknown> {
     value.constructor === Object;
 }
 
-export function getParentURL(url: URL): URL {
+export function getParentURL(url: URL | string): URL {
   return normalize(join(url, "..", "/"));
 }

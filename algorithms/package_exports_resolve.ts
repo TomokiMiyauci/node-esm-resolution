@@ -94,8 +94,8 @@ export default async function PACKAGE_EXPORTS_RESOLVE(
 
   const path = fromFileUrl(new URL(".", packageURL));
   const message = subpath === "."
-    ? format(Msg.NoExports, { subpath, path })
-    : format(Msg.SubpathNotDefied, { path });
+    ? format(Msg.NoExports, { path })
+    : format(Msg.SubpathNotDefied, { subpath, path });
 
   // 4. Throw a Package Path Not Exported error.
   throw new PackagePathNotExportedError(message);

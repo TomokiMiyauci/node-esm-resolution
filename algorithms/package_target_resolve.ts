@@ -18,7 +18,7 @@ import { type Context } from "./context.ts";
  * @returns The resolved target, or null if not found, or undefined if not resolvable.
  */
 export default function PACKAGE_TARGET_RESOLVE(
-  packageURL: URL,
+  packageURL: URL | string,
   target: Target,
   patternMatch: string | null,
   isImports: boolean,

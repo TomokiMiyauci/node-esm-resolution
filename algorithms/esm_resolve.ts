@@ -20,7 +20,7 @@ export interface ResolveResult {
  */
 export default async function ESM_RESOLVE(
   specifier: string,
-  parentURL: URL,
+  parentURL: URL | string,
   ctx: Context,
 ): Promise<ResolveResult> {
   ctx.conditions ??= defaultConditions;

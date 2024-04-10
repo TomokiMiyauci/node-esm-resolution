@@ -15,7 +15,7 @@ import { type Context } from "./context.ts";
 export default async function PACKAGE_SELF_RESOLVE(
   packageName: string,
   packageSubpath: string,
-  parentURL: URL,
+  parentURL: URL | string,
   ctx: Pick<Context, "conditions" | "exist" | "readFile">,
 ): Promise<URL | undefined> {
   ctx.conditions ??= defaultConditions;

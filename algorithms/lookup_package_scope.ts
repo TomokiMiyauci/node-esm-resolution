@@ -8,7 +8,7 @@ import { type Context } from "./context.ts";
  * @returns Resolved URL or null if does not exist.
  */
 export default async function LOOKUP_PACKAGE_SCOPE(
-  url: URL,
+  url: URL | string,
   ctx: Pick<Context, "exist">,
 ): Promise<URL | null> {
   // 1. Let scopeURL be url.

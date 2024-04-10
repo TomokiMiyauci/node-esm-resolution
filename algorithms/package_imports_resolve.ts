@@ -23,7 +23,7 @@ const reason = `is not a valid internal imports specifier name`;
  */
 export default async function PACKAGE_IMPORTS_RESOLVE(
   specifier: `#${string}`, // 1. Assert: specifier begins with "#".
-  parentURL: URL,
+  parentURL: URL | string,
   conditions: Iterable<string>,
   ctx: Pick<Context, "exist" | "readFile">,
 ): Promise<URL> {
