@@ -2,6 +2,11 @@ import { join } from "../deps.ts";
 import { getParentURL, isFileSystemRoot } from "./utils.ts";
 import { type Context } from "./context.ts";
 
+/** Lookup scoped package.json based on {@link url}.
+ * @param url The URL.
+ * @param ctx
+ * @returns Resolved URL or null if does not exist.
+ */
 export default async function LOOKUP_PACKAGE_SCOPE(
   url: URL,
   ctx: Pick<Context, "exist">,

@@ -12,6 +12,12 @@ export interface ResolveResult {
   format: Format | undefined;
 }
 
+/** Resolves the location of the module.
+ * @param specifier Module specifier.
+ * @param parentURL The URL of the package.json file.
+ * @param ctx
+ * @returns Module format and resolved URL.
+ */
 export default async function ESM_RESOLVE(
   specifier: string,
   parentURL: URL,

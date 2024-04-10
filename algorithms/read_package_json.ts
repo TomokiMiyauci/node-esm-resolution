@@ -2,8 +2,11 @@ import { InvalidPackageConfigurationError } from "../error.ts";
 import { join } from "../deps.ts";
 import { type Context } from "./context.ts";
 
-/**
+/** Reads package.json.
+ * @param packageURL The URL of the package.json file.
+ * @param ctx
  * @throws {InvalidPackageConfigurationError}
+ * @returns JSON parsed package.json or null if does not exist.
  */
 export default async function READ_PACKAGE_JSON(
   packageURL: URL,

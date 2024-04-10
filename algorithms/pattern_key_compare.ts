@@ -1,3 +1,8 @@
+/** Compares two strings that may contain a wildcard character ('*') and returns a value indicating their order.
+ * @param keyA The first string to compare.
+ * @param keyB The second string to compare.
+ * @returns A negative number if `a` should come before `b`, a positive number if `a` should come after `b`, or 0 if they are equal.
+ */
 export default function PATTERN_KEY_COMPARE(
   keyA: string,
   keyB: string,

@@ -5,6 +5,10 @@ import { type Context } from "./context.ts";
 
 export type Format = "module" | "commonjs" | "json" | "wasm";
 
+/** Resolves file format.
+ * @param url The URL.
+ * @param ctx
+ */
 export default async function ESM_FILE_FORMAT(
   url: URL,
   ctx: Pick<Context, "exist" | "experimentalWasmModules" | "readFile">,

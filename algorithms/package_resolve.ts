@@ -12,8 +12,12 @@ import {
 import { isBuiltin, join } from "../deps.ts";
 import { type Context } from "./context.ts";
 
-/**
+/** Resolves a package specifier to a URL.
+ * @param packageSpecifier The package specifier to resolve.
+ * @param parentURL The parent URL to use for resolution.
+ * @param ctx
  * @throws {InvalidModuleSpecifierError}
+ * @returns The resolved URL.
  */
 export default async function PACKAGE_RESOLVE(
   packageSpecifier: string,

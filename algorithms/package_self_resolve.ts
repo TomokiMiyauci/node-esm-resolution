@@ -4,9 +4,13 @@ import PACKAGE_EXPORTS_RESOLVE from "./package_exports_resolve.ts";
 import { defaultConditions, type Exports } from "./utils.ts";
 import { type Context } from "./context.ts";
 
-/** Implementation of PACKAGE_SELF_RESOLVE.
- *
+/** Resolves package itself.
+ * @param packageName Name of package.
+ * @param packageSubpath Subpath of package.
+ * @param parentURL The parent URL to resolve the import from.
+ * @param ctx
  * @throws {InvalidPackageConfigurationError}
+ * @returns The resolved URL or undefined.
  */
 export default async function PACKAGE_SELF_RESOLVE(
   packageName: string,

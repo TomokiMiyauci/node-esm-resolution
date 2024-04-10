@@ -3,8 +3,15 @@ import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PATTERN_KEY_COMPARE from "./pattern_key_compare.ts";
 import { type Context } from "./context.ts";
 
-/**
+/** Resolves `imports` or `exports` field in package.json.
+ * @param matchKey
+ * @param matchObj
+ * @param packageURL The URL of the package.json file.
+ * @param isImports
+ * @param conditions Conditions to match.
+ * @param ctx
  * @throws {InvalidPackageTargetError}
+ * @returns Resolved URL or nill.
  */
 export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
   matchKey: string,

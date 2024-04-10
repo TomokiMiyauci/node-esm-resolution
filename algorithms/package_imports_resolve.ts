@@ -6,8 +6,21 @@ import {
   PackageImportNotDefinedError,
 } from "../error.ts";
 import { isObject } from "./utils.ts";
+import { format, fromFileUrl } from "../deps.ts";
 import { type Context } from "./context.ts";
 
+const M = `Invalid module "{specifier}" {reason} imported from {base}`;
+const reason = `is not a valid internal imports specifier name`;
+
+/** Resolves the given import {@link specifier} for a package.
+ * @param specifier The specifier of the import to resolve.
+ * @param parentURL The parent URL to resolve the import from.
+ * @param conditions Conditions to match.
+ * @param ctx
+ * @throws {InvalidModuleSpecifierError} If the import specifier is not valid.
+ * @throws {PackageImportNotDefinedError} If the import specifier cannot be resolved.
+ * @returns The resolved import URL.
+ */
 export default async function PACKAGE_IMPORTS_RESOLVE(
   specifier: `#${string}`, // 1. Assert: specifier begins with "#".
   parentURL: URL,
@@ -17,7 +30,12 @@ export default async function PACKAGE_IMPORTS_RESOLVE(
   // 2. If specifier is exactly equal to "#" or starts with "#/", then
   if (specifier === "#" || specifier.startsWith("#/")) {
     // 1. Throw an Invalid Module Specifier error.
-    throw new InvalidModuleSpecifierError();
+    const message = format(M, {
+      specifier,
+      reason,
+      base: fromFileUrl(parentURL),
+    });
+    throw new InvalidModuleSpecifierError(message);
   }
 
   // 3. Let packageURL be the result of LOOKUP_PACKAGE_SCOPE(parentURL).
@@ -44,6 +62,18 @@ export default async function PACKAGE_IMPORTS_RESOLVE(
     }
   }
 
+  const message = packageURL
+    ? format(hasPath, {
+      specifier,
+      path: fromFileUrl(packageURL),
+      base: fromFileUrl(parentURL),
+    })
+    : format(notPath, { specifier, base: fromFileUrl(parentURL) });
   // 5. Throw a Package Import Not Defined error.
-  throw new PackageImportNotDefinedError();
+  throw new PackageImportNotDefinedError(message);
 }
+
+const hasPath =
+  `Package import specifier "{specifier}" is not defined in package {path}package.json imported from {base}`;
+const notPath =
+  `Package import specifier "{specifier}" is not defined imported from {base}`;

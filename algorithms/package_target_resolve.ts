@@ -7,8 +7,15 @@ import { join } from "../deps.ts";
 import PACKAGE_RESOLVE from "./package_resolve.ts";
 import { type Context } from "./context.ts";
 
-/**
+/** Resolves the target of a package based on the provided parameters.
+ * @param packageURL The URL of the package.json file.
+ * @param target The target to resolve.
+ * @param patternMatch The pattern to match.
+ * @param isImports
+ * @param conditions Conditions to match.
+ * @param ctx
  * @throws {InvalidPackageTargetError}
+ * @returns The resolved target, or null if not found, or undefined if not resolvable.
  */
 export default function PACKAGE_TARGET_RESOLVE(
   packageURL: URL,
