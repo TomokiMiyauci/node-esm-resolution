@@ -16,7 +16,7 @@ import { type Context } from "./context.ts";
 export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
   matchKey: string,
   matchObj: Record<string, Target>,
-  packageURL: URL,
+  packageURL: URL | string,
   isImports: boolean,
   conditions: Iterable<string>,
   ctx: Pick<Context, "exist" | "readFile">,

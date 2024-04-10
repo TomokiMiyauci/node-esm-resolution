@@ -1,5 +1,5 @@
 import { InvalidPackageConfigurationError } from "../error.ts";
-import { join } from "../deps.ts";
+import { fromFileUrl, join } from "../deps.ts";
 import { type Context } from "./context.ts";
 
 /** Reads package.json.
@@ -27,8 +27,11 @@ export default async function READ_PACKAGE_JSON(
     // 4. Return the parsed JSON source of the file at pjsonURL.
     // TODO add validate object
     return JSON.parse(file);
-  } catch {
+  } catch (e) {
     // 1. Throw an Invalid Package Configuration error.
-    throw new InvalidPackageConfigurationError();
+    throw new InvalidPackageConfigurationError(
+      `The file is invalid JSON format at ${fromFileUrl(pjsonURL)}`,
+      { cause: e },
+    );
   }
 }
