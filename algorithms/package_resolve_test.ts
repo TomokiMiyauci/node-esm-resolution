@@ -1,6 +1,6 @@
 import packageResolve from "./package_resolve.ts";
 import { exists } from "jsr:@std/fs";
-import { assertEquals, describe, it } from "../dev_deps.ts";
+import { assertEquals, describe, expect, it } from "../dev_deps.ts";
 import { builtinModules } from "node:module";
 
 describe("packageResolve", () => {
@@ -25,6 +25,66 @@ describe("packageResolve", () => {
       );
 
       assertEquals(result.toString(), expected);
+    }));
+  });
+
+  it("should throw error is specifier is empty string", () => {
+    expect(packageResolve("", "file:///", {
+      exist: exists,
+      readFile: (url) => {
+        return Deno.readTextFile(url);
+      },
+    })).rejects.toThrow("Module specifier must be a non-empty string");
+  });
+
+  it("should throw error is specifier starts with @ but not contain slash", () => {
+    expect(packageResolve("@", "file:///", {
+      exist: exists,
+      readFile: (url) => {
+        return Deno.readTextFile(url);
+      },
+    })).rejects.toThrow("Module specifier is invalid. Received '@'");
+  });
+
+  it("should throw error is specifier starts with . or contains \\ or %", async () => {
+    const table = [
+      ".",
+      ".test",
+      "\\",
+      "te\\st",
+      "%",
+      "te%st",
+      "@scope\\/test",
+      "@scope%test",
+    ];
+
+    await Promise.all(table.map(async (specifier) => {
+      await expect(packageResolve(specifier, "file:///", {
+        exist: exists,
+        readFile: (url) => {
+          return Deno.readTextFile(url);
+        },
+      })).rejects.toThrow(
+        `Module specifier is invalid. Received '${specifier}'`,
+      );
+    }));
+  });
+
+  it("should throw error is specifier of subpath ends with slash", async () => {
+    const table = [
+      "test/subpath/",
+      "/",
+    ];
+
+    await Promise.all(table.map(async (specifier) => {
+      await expect(packageResolve(specifier, "file:///", {
+        exist: exists,
+        readFile: (url) => {
+          return Deno.readTextFile(url);
+        },
+      })).rejects.toThrow(
+        `Module specifier is invalid. Received '${specifier}'`,
+      );
     }));
   });
 });

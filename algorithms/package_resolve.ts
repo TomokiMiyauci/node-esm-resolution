@@ -9,8 +9,10 @@ import {
   isFileSystemRoot,
   secondIndexOf,
 } from "./utils.ts";
-import { isBuiltin, join } from "../deps.ts";
+import { format, isBuiltin, join } from "../deps.ts";
 import { type Context } from "./context.ts";
+
+const msg = `Module specifier is invalid. Received '{specifier}'`;
 
 /** Resolves a package specifier to a URL.
  * @param packageSpecifier The package specifier to resolve.
@@ -32,7 +34,9 @@ export default async function PACKAGE_RESOLVE(
   // 2. If packageSpecifier is an empty string, then
   if (!packageSpecifier) {
     // 1. Throw an Invalid Module Specifier error.
-    throw new InvalidModuleSpecifierError();
+    throw new InvalidModuleSpecifierError(
+      "Module specifier must be a non-empty string",
+    );
   }
 
   // 3. If packageSpecifier is a Node.js builtin module name, then
@@ -53,8 +57,9 @@ export default async function PACKAGE_RESOLVE(
   else {
     // 1. If packageSpecifier does not contain a "/" separator, then
     if (!packageSpecifier.includes("/")) {
+      const message = format(msg, { specifier: packageSpecifier });
       // 1. Throw an Invalid Module Specifier error.
-      throw new InvalidModuleSpecifierError();
+      throw new InvalidModuleSpecifierError(message);
     }
 
     const index = secondIndexOf(packageSpecifier, "/");
@@ -70,8 +75,9 @@ export default async function PACKAGE_RESOLVE(
     packageName.includes("\\") ||
     packageName.includes("%")
   ) {
+    const message = format(msg, { specifier: packageSpecifier });
     // 1. Throw an Invalid Module Specifier error.
-    throw new InvalidModuleSpecifierError();
+    throw new InvalidModuleSpecifierError(message);
   }
 
   // 7. Let packageSubpath be "." concatenated with the substring of packageSpecifier from the position at the length of packageName.
@@ -80,8 +86,9 @@ export default async function PACKAGE_RESOLVE(
 
   // 8. If packageSubpath ends in "/", then
   if (packageSubpath.endsWith("/")) {
+    const message = format(msg, { specifier: packageSpecifier });
     // 1. Throw an Invalid Module Specifier error.
-    throw new InvalidModuleSpecifierError();
+    throw new InvalidModuleSpecifierError(message);
   }
 
   // 9. Let selfUrl be the result of PACKAGE_SELF_RESOLVE(packageName, packageSubpath, parentURL).
