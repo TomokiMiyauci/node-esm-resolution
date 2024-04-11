@@ -44,9 +44,6 @@ jobs:
         with:
           deno-version: ${{ matrix.deno }}
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
       - name: Test
         run: deno task test --coverage
 
