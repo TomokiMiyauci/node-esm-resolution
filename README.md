@@ -1,6 +1,6 @@
 # node-esm-resolution
 
-Node.js ESModule resolution algorithms
+Node.js ES Modules resolution algorithms
 
 This is reference implementation of
 [Resolution Algorithm Specification](https://nodejs.org/api/esm.html#resolution-and-loading-algorithm).
