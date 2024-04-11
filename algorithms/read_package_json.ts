@@ -8,7 +8,7 @@ import { type Context } from "./context.ts";
  * @throws {InvalidPackageConfigurationError}
  * @returns JSON parsed package.json or null if does not exist.
  */
-export default async function READ_PACKAGE_JSON(
+export default async function readPackageJson(
   packageURL: URL,
   ctx: Pick<Context, "readFile">,
 ): Promise<Record<string, unknown> | null> {

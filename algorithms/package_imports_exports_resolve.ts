@@ -13,7 +13,7 @@ import { type Context } from "./context.ts";
  * @throws {InvalidPackageTargetError}
  * @returns Resolved URL or nill.
  */
-export default function PACKAGE_IMPORTS_EXPORTS_RESOLVE(
+export default function packageImportsExportsResolve(
   matchKey: string,
   matchObj: Record<string, Target>,
   packageURL: URL | string,

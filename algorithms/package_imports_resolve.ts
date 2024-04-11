@@ -21,7 +21,7 @@ const reason = `is not a valid internal imports specifier name`;
  * @throws {PackageImportNotDefinedError} If the import specifier cannot be resolved.
  * @returns The resolved import URL.
  */
-export default async function PACKAGE_IMPORTS_RESOLVE(
+export default async function packageImportsResolve(
   specifier: `#${string}`, // 1. Assert: specifier begins with "#".
   parentURL: URL | string,
   conditions: Iterable<string>,

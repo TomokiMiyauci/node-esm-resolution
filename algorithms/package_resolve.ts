@@ -21,7 +21,7 @@ const msg = `Module specifier is invalid. Received '{specifier}'`;
  * @throws {InvalidModuleSpecifierError}
  * @returns The resolved URL.
  */
-export default async function PACKAGE_RESOLVE(
+export default async function packageResolve(
   packageSpecifier: string,
   parentURL: URL | string,
   ctx: Pick<Context, "exist" | "readFile" | "conditions">,

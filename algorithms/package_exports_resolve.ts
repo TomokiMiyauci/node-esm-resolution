@@ -23,7 +23,7 @@ import type { Subpath } from "./types.ts";
  * @throws {InvalidPackageConfigurationError}
  * @returns The resolved package target.
  */
-export default async function PACKAGE_EXPORTS_RESOLVE(
+export default async function packageExportsResolve(
   packageURL: URL | string,
   subpath: Subpath,
   exports: Exports,

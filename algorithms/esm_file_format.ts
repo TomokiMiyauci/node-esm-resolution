@@ -9,7 +9,7 @@ export type Format = "module" | "commonjs" | "json" | "wasm";
  * @param url The URL.
  * @param ctx
  */
-export default async function ESM_FILE_FORMAT(
+export default async function esmFileFormat(
   url: URL | string,
   ctx: Pick<Context, "exist" | "experimentalWasmModules" | "readFile">,
 ): Promise<Format | undefined> {

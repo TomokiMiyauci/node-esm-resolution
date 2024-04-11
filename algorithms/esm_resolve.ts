@@ -18,7 +18,7 @@ export interface ResolveResult {
  * @param ctx
  * @returns Module format and resolved URL.
  */
-export default async function ESM_RESOLVE(
+export default async function esmResolve(
   specifier: string,
   parentURL: URL | string,
   ctx: Context,

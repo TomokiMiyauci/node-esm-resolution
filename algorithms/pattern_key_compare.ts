@@ -3,7 +3,7 @@
  * @param keyB The second string to compare.
  * @returns A negative number if {@link keyA} should come before {@link keyB}, a positive number if {@link keyA} should come after {@link keyB}, or 0 if they are equal.
  */
-export default function PATTERN_KEY_COMPARE(
+export default function patternKeyCompare(
   keyA: string,
   keyB: string,
 ): 1 | 0 | -1 {

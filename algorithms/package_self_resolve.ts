@@ -13,7 +13,7 @@ import type { Subpath } from "./types.ts";
  * @throws {InvalidPackageConfigurationError}
  * @returns The resolved URL or undefined.
  */
-export default async function PACKAGE_SELF_RESOLVE(
+export default async function packageSelfResolve(
   packageName: string,
   packageSubpath: Subpath,
   parentURL: URL | string,

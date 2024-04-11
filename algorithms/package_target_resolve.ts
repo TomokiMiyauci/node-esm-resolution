@@ -17,7 +17,7 @@ import { type Context } from "./context.ts";
  * @throws {InvalidPackageTargetError}
  * @returns The resolved target, or null if not found, or undefined if not resolvable.
  */
-export default function PACKAGE_TARGET_RESOLVE(
+export default function packageTargetResolve(
   packageURL: URL | string,
   target: Target,
   patternMatch: string | null,
@@ -92,7 +92,7 @@ export default function PACKAGE_TARGET_RESOLVE(
         const targetValue = target[p];
 
         // 2. Let resolved be the result of PACKAGE_TARGET_RESOLVE( packageURL, targetValue, patternMatch, isImports, conditions).
-        const resolved = PACKAGE_TARGET_RESOLVE(
+        const resolved = packageTargetResolve(
           packageURL,
           targetValue,
           patternMatch,
@@ -120,7 +120,7 @@ export default function PACKAGE_TARGET_RESOLVE(
     for (const targetValue of target) {
       // 1. Let resolved be the result of PACKAGE_TARGET_RESOLVE( packageURL, targetValue, patternMatch, isImports, conditions), continuing the loop on any Invalid Package Target error.
       try {
-        const resolved = PACKAGE_TARGET_RESOLVE(
+        const resolved = packageTargetResolve(
           packageURL,
           targetValue,
           patternMatch,
