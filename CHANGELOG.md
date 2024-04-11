@@ -1,3 +1,10 @@
+# [1.0.0-beta.2](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.1...1.0.0-beta.2) (2024-04-11)
+
+
+### Features
+
+* **context:** change read file interface to accept nill ([d0c84ed](https://github.com/TomokiMiyauci/node-esm-resolution/commit/d0c84ed34a23f2754016dfdb2c82be7d64fff20c))
+
 # 1.0.0-beta.1 (2024-04-11)
 
 
