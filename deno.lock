@@ -16,6 +16,7 @@
       "jsr:@std/regexp@^0.221.0": "jsr:@std/regexp@0.221.0",
       "jsr:@std/testing": "jsr:@std/testing@0.221.0",
       "jsr:@std/testing@^0.221.0": "jsr:@std/testing@0.221.0",
+      "jsr:@std/url": "jsr:@std/url@0.221.0",
       "jsr:@std/url@^0.221.0": "jsr:@std/url@0.221.0",
       "npm:@types/node": "npm:@types/node@18.16.19"
     },
