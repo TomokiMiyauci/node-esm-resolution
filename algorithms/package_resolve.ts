@@ -148,5 +148,5 @@ export default async function PACKAGE_RESOLVE(
   }
 
   // 12. Throw a Module Not Found error.
-  throw new ModuleNotFoundError();
+  throw new ModuleNotFoundError(`Cannot find module '${packageSpecifier}'`);
 }
