@@ -13,6 +13,7 @@ import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PACKAGE_IMPORTS_EXPORTS_RESOLVE from "./package_imports_exports_resolve.ts";
 import { type Context } from "./context.ts";
 import type { Subpath } from "./types.ts";
+import { Msg } from "./constants.ts";
 
 /** Resolves the exports of a package.
  * @param packageURL The URL of the package.json file.
@@ -36,7 +37,10 @@ export default async function packageExportsResolve(
     const [startWithPeriod, others] = partition(keys, isStartWithPeriod);
 
     if (startWithPeriod.length && others.length) {
-      throw new InvalidPackageConfigurationError();
+      const message = format(Msg.InvalidExportsKeys, {
+        pjsonPath: fromFileUrl(packageURL),
+      });
+      throw new InvalidPackageConfigurationError(message);
     }
   }
 
@@ -93,17 +97,11 @@ export default async function packageExportsResolve(
     if (resolved) return resolved;
   }
 
-  const path = fromFileUrl(new URL(".", packageURL));
+  const pjsonPath = fromFileUrl(packageURL);
   const message = subpath === "."
-    ? format(Msg.NoExports, { path })
-    : format(Msg.SubpathNotDefied, { subpath, path });
+    ? format(Msg.PackagePathNotExportedWithoutSubpath, { pjsonPath })
+    : format(Msg.PackagePathNotExportedWithSubpath, { subpath, pjsonPath });
 
   // 4. Throw a Package Path Not Exported error.
   throw new PackagePathNotExportedError(message);
-}
-
-const enum Msg {
-  SubpathNotDefied =
-    `Package subpath '{subpath}' is not defined by "exports" in {path}package.json`,
-  NoExports = `No "exports" main defined in {path}package.json`,
 }
