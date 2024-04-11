@@ -16,3 +16,12 @@ export { default as packageTargetResolve } from "./algorithms/package_target_res
 export { default as comparePatternKey } from "./algorithms/pattern_key_compare.ts";
 export { default as readPackageJson } from "./algorithms/read_package_json.ts";
 export { type Context } from "./algorithms/context.ts";
+export {
+  InvalidModuleSpecifierError,
+  InvalidPackageConfigurationError,
+  InvalidPackageTargetError,
+  ModuleNotFoundError,
+  PackageImportNotDefinedError,
+  PackagePathNotExportedError,
+  UnsupportedDirectoryImportError,
+} from "./error.ts";
