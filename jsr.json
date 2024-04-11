@@ -1,0 +1,4 @@
+{
+  "name": "@miyauci/node-esm-resolution",
+  "exports": "./mod.ts"
+}
