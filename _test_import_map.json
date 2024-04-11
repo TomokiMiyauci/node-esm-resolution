@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "@miyauci/node-esm-resolution": "./mod.ts",
+    "@std/fs": "jsr:@std/fs@^0.221.0",
+    "@std/path": "jsr:@std/path@^0.221.0"
+  }
+}
