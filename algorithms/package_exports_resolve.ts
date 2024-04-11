@@ -13,6 +13,8 @@ import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PACKAGE_IMPORTS_EXPORTS_RESOLVE from "./package_imports_exports_resolve.ts";
 import { type Context } from "./context.ts";
 
+export type Subpath = `.${string}`;
+
 /** Resolves the exports of a package.
  * @param packageURL The URL of the package.json file.
  * @param subpath The subpath of the package to resolve.
@@ -23,8 +25,8 @@ import { type Context } from "./context.ts";
  * @returns The resolved package target.
  */
 export default async function PACKAGE_EXPORTS_RESOLVE(
-  packageURL: URL,
-  subpath: string,
+  packageURL: URL | string,
+  subpath: Subpath,
   exports: Exports,
   conditions: Iterable<string>,
   ctx: Pick<Context, "exist" | "readFile">,

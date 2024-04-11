@@ -81,8 +81,9 @@ export default async function PACKAGE_RESOLVE(
   }
 
   // 7. Let packageSubpath be "." concatenated with the substring of packageSpecifier from the position at the length of packageName.
-  const packageSubpath = "." +
-    packageSpecifier.substring(packageName.length);
+  const packageSubpath = `.${
+    packageSpecifier.substring(packageName.length)
+  }` as const;
 
   // 8. If packageSubpath ends in "/", then
   if (packageSubpath.endsWith("/")) {
