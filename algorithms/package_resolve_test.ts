@@ -1,15 +1,13 @@
 import packageResolve from "./package_resolve.ts";
-import { exists } from "jsr:@std/fs";
-import { assertEquals, describe, expect, it } from "../dev_deps.ts";
-import { builtinModules } from "node:module";
-import { fromFileUrl } from "jsr:@std/path";
-
-const context = {
-  exist: exists,
-  readFile: (url: URL) => {
-    return Deno.readTextFile(url);
-  },
-};
+import {
+  assertEquals,
+  builtinModules,
+  describe,
+  expect,
+  fromFileUrl,
+  it,
+} from "../dev_deps.ts";
+import { context } from "../tests/utils.ts";
 
 describe("packageResolve", () => {
   it("should return node protocol URL when it give node built in module name as specifier", async () => {

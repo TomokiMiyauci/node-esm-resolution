@@ -4,11 +4,11 @@ export interface Context {
     url: URL,
   ): Promise<string | null | undefined> | string | null | undefined;
 
-  /** Whether {@link url} exists or not. */
-  exist(url: URL): Promise<boolean> | boolean;
+  /** Whether the {@link url} exists as directory. */
+  existDir(url: URL): Promise<boolean> | boolean;
 
-  /** Whether {@link url} is directory or not. */
-  isDir(url: URL): Promise<boolean> | boolean;
+  /** Whether the {@link url} exists as file. */
+  existFile(url: URL): Promise<boolean> | boolean;
 
   /** Get real `URL` from {@link url}. */
   realUrl(url: URL): Promise<URL> | URL;

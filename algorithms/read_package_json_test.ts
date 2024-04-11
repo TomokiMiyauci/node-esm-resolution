@@ -8,24 +8,7 @@ import {
   join,
 } from "../dev_deps.ts";
 import { Msg } from "./constants.ts";
-
-const context = {
-  readFile: async (url: URL) => {
-    try {
-      return await Deno.readTextFile(url);
-    } catch (e) {
-      if (e instanceof Deno.errors.NotFound) {
-        return null;
-      }
-
-      if (e instanceof Deno.errors.IsADirectory) {
-        return null;
-      }
-
-      throw e;
-    }
-  },
-};
+import { context } from "../tests/utils.ts";
 
 describe("readPackageJson", () => {
   it("should return parsed package.json", async () => {

@@ -29,7 +29,7 @@ export default async function packageExportsResolve(
   subpath: Subpath,
   exports: Exports,
   conditions: Iterable<string>,
-  ctx: Pick<Context, "exist" | "readFile">,
+  ctx: Pick<Context, "existDir" | "existFile" | "readFile">,
 ): Promise<URL> {
   // 1. If exports is an Object with both a key starting with "." and a key not starting with ".", throw an Invalid Package Configuration error.
   if (isObject(exports)) {

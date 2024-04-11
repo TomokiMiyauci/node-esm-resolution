@@ -9,7 +9,7 @@ import { type Context } from "./context.ts";
  */
 export default async function lookupPackageScope(
   url: URL | string,
-  ctx: Pick<Context, "exist">,
+  ctx: Pick<Context, "existFile">,
 ): Promise<URL | null> {
   // 1. Let scopeURL be url.
   let scopeURL = url;
@@ -28,7 +28,7 @@ export default async function lookupPackageScope(
     const pjsonURL = join(scopeURL, "package.json");
 
     // 4. if the file at pjsonURL exists, then
-    if (await ctx.exist(pjsonURL)) {
+    if (await ctx.existFile(pjsonURL)) {
       // 1. Return scopeURL.
       return scopeURL;
     }

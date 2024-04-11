@@ -24,7 +24,7 @@ const msg = `Module specifier is invalid. Received '{specifier}'`;
 export default async function packageResolve(
   packageSpecifier: string,
   parentURL: URL | string,
-  ctx: Pick<Context, "exist" | "readFile" | "conditions">,
+  ctx: Pick<Context, "existDir" | "existFile" | "readFile" | "conditions">,
 ): Promise<URL> {
   ctx.conditions ??= defaultConditions;
 
@@ -113,7 +113,7 @@ export default async function packageResolve(
     parentURL = getParentURL(parentURL);
 
     // 3. If the folder at packageURL does not exist, then
-    if (!await ctx.exist(packageURL)) {
+    if (!await ctx.existDir(packageURL)) {
       // 1. Continue the next loop iteration.
       continue;
     }

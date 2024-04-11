@@ -58,9 +58,11 @@ declare const parentURL: URL | string;
 
 const { format, url } = await esmResolve(specifier, parentURL, {
   readFile: Deno.readTextFile.bind(Deno),
-  exist: exists,
-  isDir: (url) => {
-    return exists(url, { isDirectory: true });
+  existFile: (url) => {
+    return exists(url, { isFile: true });
+  },
+  existDir: (url) => {
+    return exists(url, { isFile: true });
   },
   realUrl: async (url) => {
     const path = await Deno.realPath(url);

@@ -11,7 +11,7 @@ export type Format = "module" | "commonjs" | "json" | "wasm";
  */
 export default async function esmFileFormat(
   url: URL | string,
-  ctx: Pick<Context, "exist" | "experimentalWasmModules" | "readFile">,
+  ctx: Pick<Context, "experimentalWasmModules" | "existFile" | "readFile">,
 ): Promise<Format | undefined> {
   const ext = extname(url);
 

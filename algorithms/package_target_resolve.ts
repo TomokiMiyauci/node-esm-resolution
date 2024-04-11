@@ -3,8 +3,9 @@ import {
   InvalidPackageTargetError,
 } from "../error.ts";
 import { isObject, type Target } from "./utils.ts";
-import { join } from "../deps.ts";
+import { format, fromFileUrl, join } from "../deps.ts";
 import PACKAGE_RESOLVE from "./package_resolve.ts";
+import { Msg } from "./constants.ts";
 import { type Context } from "./context.ts";
 
 /** Resolves the target of a package based on the provided parameters.
@@ -23,7 +24,7 @@ export default function packageTargetResolve(
   patternMatch: string | null,
   isImports: boolean,
   conditions: Iterable<string>,
-  ctx: Pick<Context, "exist" | "readFile">,
+  ctx: Pick<Context, "existDir" | "existFile" | "readFile">,
 ): Promise<URL | null | undefined> | URL | null | undefined {
   // 1. If target is a String, then
   if (typeof target === "string") {
@@ -37,8 +38,13 @@ export default function packageTargetResolve(
         URL.canParse(target)
       ) {
         // 1. Throw an Invalid Package Target error.
-        throw new InvalidPackageTargetError();
+        const messge = format(Msg.InvalidExportsTarget, {
+          target,
+          pjsonPath: fromFileUrl(join(packageURL, "package.json")),
+        });
+        throw new InvalidPackageTargetError(messge);
       }
+
       // 2. If patternMatch is a String, then
       if (typeof patternMatch === "string") {
         const replaced = target.replaceAll("*", patternMatch);

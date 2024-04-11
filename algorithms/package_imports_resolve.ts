@@ -25,7 +25,7 @@ export default async function packageImportsResolve(
   specifier: `#${string}`, // 1. Assert: specifier begins with "#".
   parentURL: URL | string,
   conditions: Iterable<string>,
-  ctx: Pick<Context, "exist" | "readFile">,
+  ctx: Pick<Context, "existDir" | "existFile" | "readFile">,
 ): Promise<URL> {
   // 2. If specifier is exactly equal to "#" or starts with "#/", then
   if (specifier === "#" || specifier.startsWith("#/")) {

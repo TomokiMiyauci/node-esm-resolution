@@ -17,7 +17,7 @@ export default async function packageSelfResolve(
   packageName: string,
   packageSubpath: Subpath,
   parentURL: URL | string,
-  ctx: Pick<Context, "conditions" | "exist" | "readFile">,
+  ctx: Pick<Context, "conditions" | "existDir" | "existFile" | "readFile">,
 ): Promise<URL | undefined> {
   ctx.conditions ??= defaultConditions;
 

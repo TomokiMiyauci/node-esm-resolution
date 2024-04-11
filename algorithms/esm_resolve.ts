@@ -66,13 +66,13 @@ export default async function esmResolve(
     }
 
     // 2. If the file at resolved is a directory, then
-    if (await ctx.isDir(new URL(resolved))) {
+    if (await ctx.existDir(new URL(resolved))) {
       // 1. Throw an Unsupported Directory Import error.
       throw new UnsupportedDirectoryImportError();
     }
 
     // 3. If the file at resolved does not exist, then
-    if (!await ctx.exist(new URL(resolved))) {
+    if (!await ctx.existFile(new URL(resolved))) {
       // 1. Throw a Module Not Found error.
       throw new ModuleNotFoundError();
     }
