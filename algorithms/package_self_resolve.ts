@@ -3,6 +3,7 @@ import READ_PACKAGE_JSON from "./read_package_json.ts";
 import PACKAGE_EXPORTS_RESOLVE from "./package_exports_resolve.ts";
 import { defaultConditions, type Exports } from "./utils.ts";
 import { type Context } from "./context.ts";
+import type { Subpath } from "./types.ts";
 
 /** Resolves package itself.
  * @param packageName Name of package.
@@ -14,7 +15,7 @@ import { type Context } from "./context.ts";
  */
 export default async function PACKAGE_SELF_RESOLVE(
   packageName: string,
-  packageSubpath: string,
+  packageSubpath: Subpath,
   parentURL: URL | string,
   ctx: Pick<Context, "conditions" | "exist" | "readFile">,
 ): Promise<URL | undefined> {

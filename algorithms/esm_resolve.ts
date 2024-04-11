@@ -8,7 +8,7 @@ import { join } from "../deps.ts";
 import { UnsupportedDirectoryImportError } from "../error.ts";
 
 export interface ResolveResult {
-  resolved: URL;
+  url: URL;
   format: Format | undefined;
 }
 
@@ -80,7 +80,7 @@ export default async function ESM_RESOLVE(
     // 4. Set resolved to the real path of resolved, maintaining the same URL querystring and fragment components.
     resolved = await ctx.realUrl(new URL(resolved));
 
-    //   // 5. Set format to the result of ESM_FILE_FORMAT(resolved).
+    // 5. Set format to the result of ESM_FILE_FORMAT(resolved).
     format = await ESM_FILE_FORMAT(new URL(resolved), ctx);
 
     // 8. Otherwise,
@@ -90,5 +90,5 @@ export default async function ESM_RESOLVE(
   }
 
   // 9. Return format and resolved to the loading phase
-  return { format, resolved };
+  return { format, url: resolved };
 }
