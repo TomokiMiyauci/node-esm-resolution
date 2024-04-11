@@ -2,7 +2,7 @@ export interface Context {
   /** Read {@link url}. */
   readFile(
     url: URL,
-  ): Promise<string> | string;
+  ): Promise<string | null | undefined> | string | null | undefined;
 
   /** Whether {@link url} exists or not. */
   exist(url: URL): Promise<boolean> | boolean;
