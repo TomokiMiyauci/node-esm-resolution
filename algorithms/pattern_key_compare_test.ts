@@ -24,6 +24,8 @@ describe("patternKeyCompare", () => {
       ["a*a", "aa*", 1],
       ["*aa", "a*a", 1],
       ["a*a", "a*a", 0],
+      ["*", "a", -1],
+      ["a", "*", 1],
     ];
 
     table.forEach(([left, right, expected]) => {
