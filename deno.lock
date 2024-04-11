@@ -7,6 +7,7 @@
       "jsr:@std/assert@^0.221.0": "jsr:@std/assert@0.221.0",
       "jsr:@std/collections@^0.221.0": "jsr:@std/collections@0.221.0",
       "jsr:@std/expect": "jsr:@std/expect@0.221.0",
+      "jsr:@std/expect@^0.221.0": "jsr:@std/expect@0.221.0",
       "jsr:@std/fmt@^0.221.0": "jsr:@std/fmt@0.221.0",
       "jsr:@std/fs": "jsr:@std/fs@0.221.0",
       "jsr:@std/fs@^0.221.0": "jsr:@std/fs@0.221.0",
@@ -14,6 +15,7 @@
       "jsr:@std/path@^0.221.0": "jsr:@std/path@0.221.0",
       "jsr:@std/regexp@^0.221.0": "jsr:@std/regexp@0.221.0",
       "jsr:@std/testing": "jsr:@std/testing@0.221.0",
+      "jsr:@std/testing@^0.221.0": "jsr:@std/testing@0.221.0",
       "jsr:@std/url@^0.221.0": "jsr:@std/url@0.221.0",
       "npm:@types/node": "npm:@types/node@18.16.19"
     },
