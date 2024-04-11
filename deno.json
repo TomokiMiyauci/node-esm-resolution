@@ -1,5 +1,14 @@
 {
   "tasks": {
     "test": "deno test --allow-read --import-map=_test_import_map.json --doc"
+  },
+  "fmt": {
+    "exclude": ["CHANGELOG.md"]
+  },
+  "lint": {
+    "exclude": ["CHANGELOG.md"]
+  },
+  "test": {
+    "exclude": ["CHANGELOG.md"]
   }
 }
