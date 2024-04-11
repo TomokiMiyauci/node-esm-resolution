@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "test": "deno test --allow-read --import-map=_test_import_map.json --doc"
+    "test": "deno test --allow-read --import-map=_test_import_map.json --doc",
+    "publish": "deno publish -c=jsr.json"
   },
   "fmt": {
     "exclude": ["CHANGELOG.md"]
