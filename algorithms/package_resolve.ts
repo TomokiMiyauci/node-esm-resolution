@@ -4,7 +4,6 @@ import READ_PACKAGE_JSON from "./read_package_json.ts";
 import PACKAGE_EXPORTS_RESOLVE from "./package_exports_resolve.ts";
 import {
   defaultConditions,
-  type Exports,
   getParentURL,
   isFileSystemRoot,
   secondIndexOf,
@@ -130,7 +129,7 @@ export default async function packageResolve(
       return PACKAGE_EXPORTS_RESOLVE(
         packageURL,
         packageSubpath,
-        pjson.exports as Exports,
+        pjson.exports,
         ctx.conditions,
         ctx,
       );

@@ -1,10 +1,5 @@
 import { escape, join, normalize } from "../deps.ts";
 
-export type Exports =
-  | string
-  | string[]
-  | Record<string, string | Record<string, string>>;
-
 export function isStartWithPeriod(input: string): input is `.${string}` {
   return input.startsWith(".");
 }

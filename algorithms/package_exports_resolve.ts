@@ -3,7 +3,7 @@ import {
   PackagePathNotExportedError,
 } from "../error.ts";
 import { format, fromFileUrl, partition } from "../deps.ts";
-import { type Exports, isObject, isStartWithPeriod } from "./utils.ts";
+import { isObject, isStartWithPeriod } from "./utils.ts";
 import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PACKAGE_IMPORTS_EXPORTS_RESOLVE from "./package_imports_exports_resolve.ts";
 import { type Context } from "./context.ts";
@@ -22,7 +22,7 @@ import { Msg } from "./constants.ts";
 export default async function packageExportsResolve(
   packageURL: URL | string,
   subpath: Subpath,
-  exports: Exports,
+  exports: unknown,
   conditions: Iterable<string>,
   ctx: Pick<Context, "existDir" | "existFile" | "readFile">,
 ): Promise<URL> {

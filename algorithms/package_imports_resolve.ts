@@ -51,7 +51,7 @@ export default async function packageImportsResolve(
       // 1. Let resolved be the result of PACKAGE_IMPORTS_EXPORTS_RESOLVE( specifier, pjson.imports, packageURL, true, conditions).
       const resolved = await PACKAGE_IMPORTS_EXPORTS_RESOLVE(
         specifier,
-        pjson.imports as Record<string, string>,
+        pjson.imports,
         packageURL,
         true,
         conditions,
