@@ -1,3 +1,15 @@
+# [1.0.0-beta.5](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.4...1.0.0-beta.5) (2024-04-12)
+
+
+### Bug Fixes
+
+* **package_imports_exports_resolve:** fix to glob pattern matching logic ([d621cc2](https://github.com/TomokiMiyauci/node-esm-resolution/commit/d621cc2a9cc03b392cf835460287323c9250b449))
+
+
+### Features
+
+* **algorithms:** remove Exports type, change exports interface to unknown ([1ee7812](https://github.com/TomokiMiyauci/node-esm-resolution/commit/1ee78122900d6964c3d925664261cca4284938d1))
+
 # [1.0.0-beta.4](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.3...1.0.0-beta.4) (2024-04-12)
 
 
