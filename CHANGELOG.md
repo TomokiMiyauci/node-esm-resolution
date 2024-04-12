@@ -1,3 +1,10 @@
+# [1.0.0-beta.4](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.3...1.0.0-beta.4) (2024-04-12)
+
+
+### Features
+
+* **algorithms:** change target type to unknown ([0d9cad6](https://github.com/TomokiMiyauci/node-esm-resolution/commit/0d9cad67b5afb73971f10150af536a8779c0226d))
+
 # [1.0.0-beta.3](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.2...1.0.0-beta.3) (2024-04-12)
 
 
