@@ -4,10 +4,12 @@ import {
   builtinModules,
   describe,
   expect,
+  format,
   fromFileUrl,
   it,
 } from "../dev_deps.ts";
 import { context } from "../tests/utils.ts";
+import { Msg } from "./constants.ts";
 
 describe("packageResolve", () => {
   it("should return node protocol URL when it give node built in module name as specifier", async () => {
@@ -118,6 +120,53 @@ describe("packageResolve", () => {
           )
         }`,
       );
+  });
+
+  it("should resolve if the module is scoped", async () => {
+    const referrer = import.meta.resolve("../tests/mod.ts");
+
+    await expect(packageResolve("@scope/exports-string", referrer, context))
+      .resolves.toEqual(
+        new URL(
+          import.meta.resolve(
+            "../tests/node_modules/@scope/exports-string/main.js",
+          ),
+        ),
+      );
+  });
+
+  it("should resolve main filed of package.json", async () => {
+    const referrer = import.meta.resolve("../tests/mod.ts");
+
+    await expect(packageResolve("main-only", referrer, context))
+      .resolves.toEqual(
+        new URL(
+          import.meta.resolve(
+            "../tests/node_modules/main-only/main.js",
+          ),
+        ),
+      );
+  });
+
+  it("should resolve main filed with subpath", async () => {
+    const referrer = import.meta.resolve("../tests/mod.ts");
+
+    await expect(packageResolve("main-only/sub", referrer, context))
+      .resolves.toEqual(
+        new URL(
+          import.meta.resolve(
+            "../tests/node_modules/main-only/sub",
+          ),
+        ),
+      );
+  });
+
+  it("should throw error if the module not found", async () => {
+    const referrer = import.meta.resolve("../tests/mod.ts");
+    const specifier = "not-exist";
+
+    await expect(packageResolve(specifier, referrer, context))
+      .rejects.toThrow(format(Msg.ModuleNotFound, { specifier }));
   });
 });
 

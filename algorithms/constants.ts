@@ -8,4 +8,5 @@ export const enum Msg {
   InvalidExportsTarget =
     `Invalid "exports" target '{target}' defined in the package config {pjsonPath}`,
   InvalidPjson = `The file is invalid JSON format at {pjsonPath}`,
+  ModuleNotFound = `Cannot find module '{specifier}'`,
 }

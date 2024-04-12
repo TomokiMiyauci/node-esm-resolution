@@ -11,6 +11,7 @@ import {
 } from "./utils.ts";
 import { format, isBuiltin, join } from "../deps.ts";
 import { type Context } from "./context.ts";
+import { Msg } from "./constants.ts";
 
 const msg = `Module specifier is invalid. Received '{specifier}'`;
 
@@ -148,6 +149,7 @@ export default async function packageResolve(
     return join(packageURL, packageSubpath);
   }
 
+  const message = format(Msg.ModuleNotFound, { specifier: packageSpecifier });
   // 12. Throw a Module Not Found error.
-  throw new ModuleNotFoundError(`Cannot find module '${packageSpecifier}'`);
+  throw new ModuleNotFoundError(message);
 }
