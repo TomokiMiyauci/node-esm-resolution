@@ -3,12 +3,7 @@ import {
   PackagePathNotExportedError,
 } from "../error.ts";
 import { format, fromFileUrl, partition } from "../deps.ts";
-import {
-  type Exports,
-  isObject,
-  isStartWithPeriod,
-  type Target,
-} from "./utils.ts";
+import { type Exports, isObject, isStartWithPeriod } from "./utils.ts";
 import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PACKAGE_IMPORTS_EXPORTS_RESOLVE from "./package_imports_exports_resolve.ts";
 import { type Context } from "./context.ts";
@@ -47,7 +42,7 @@ export default async function packageExportsResolve(
   // 2. If subpath is equal to ".", then
   if (subpath === ".") {
     // 1. Let mainExport be undefined.
-    let mainExport: Target | undefined;
+    let mainExport: unknown;
 
     // 2. If exports is a String or Array, or an Object containing no keys starting with ".", then
     if (

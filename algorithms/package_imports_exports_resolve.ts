@@ -1,4 +1,4 @@
-import { hasSinglePattern, type Target } from "./utils.ts";
+import { hasSinglePattern } from "./utils.ts";
 import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PATTERN_KEY_COMPARE from "./pattern_key_compare.ts";
 import { type Context } from "./context.ts";
@@ -15,7 +15,7 @@ import { type Context } from "./context.ts";
  */
 export default function packageImportsExportsResolve(
   matchKey: string,
-  matchObj: Record<string, Target>,
+  matchObj: Record<string, unknown>,
   packageURL: URL | string,
   isImports: boolean,
   conditions: Iterable<string>,

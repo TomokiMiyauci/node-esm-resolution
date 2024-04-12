@@ -1,11 +1,5 @@
 import { escape, join, normalize } from "../deps.ts";
 
-export type Target =
-  | string
-  | string[]
-  | Record<string, string | Record<string, string>>
-  | null;
-
 export type Exports =
   | string
   | string[]

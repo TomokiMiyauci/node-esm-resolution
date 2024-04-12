@@ -2,7 +2,7 @@ import {
   InvalidModuleSpecifierError,
   InvalidPackageTargetError,
 } from "../error.ts";
-import { isObject, type Target } from "./utils.ts";
+import { isObject } from "./utils.ts";
 import { format, fromFileUrl, join } from "../deps.ts";
 import PACKAGE_RESOLVE from "./package_resolve.ts";
 import { Msg } from "./constants.ts";
@@ -20,7 +20,7 @@ import { type Context } from "./context.ts";
  */
 export default async function packageTargetResolve(
   packageURL: URL | string,
-  target: Target,
+  target: unknown,
   patternMatch: string | null,
   isImports: boolean,
   conditions: Iterable<string>,
