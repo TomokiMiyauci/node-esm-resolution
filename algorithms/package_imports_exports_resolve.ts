@@ -52,7 +52,7 @@ export default function packageImportsExportsResolve(
     // 2. If matchKey starts with but is not equal to patternBase, then
     if (matchKey.startsWith(patternBase) && matchKey !== patternBase) {
       // 1. Let patternTrailer be the substring of expansionKey from the index after the first "*" character.
-      const patternTrailer = expansionKey.substring(firstIndex);
+      const patternTrailer = expansionKey.substring(firstIndex + 1);
 
       // 2. If patternTrailer has zero length, or if matchKey ends with patternTrailer and the length of matchKey is greater than or equal to the length of expansionKey, then
       if (
@@ -86,6 +86,6 @@ export default function packageImportsExportsResolve(
   return null;
 }
 
-function hasSingleStar(input: string): boolean {
+export function hasSingleStar(input: string): boolean {
   return hasSinglePattern(input, "*");
 }
