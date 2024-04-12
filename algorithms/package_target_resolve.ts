@@ -18,14 +18,14 @@ import { type Context } from "./context.ts";
  * @throws {InvalidPackageTargetError}
  * @returns The resolved target, or null if not found, or undefined if not resolvable.
  */
-export default function packageTargetResolve(
+export default async function packageTargetResolve(
   packageURL: URL | string,
   target: Target,
   patternMatch: string | null,
   isImports: boolean,
   conditions: Iterable<string>,
   ctx: Pick<Context, "existDir" | "existFile" | "readFile">,
-): Promise<URL | null | undefined> | URL | null | undefined {
+): Promise<URL | null | undefined> {
   // 1. If target is a String, then
   if (typeof target === "string") {
     // 1. If target does not start with "./", then
@@ -38,11 +38,11 @@ export default function packageTargetResolve(
         URL.canParse(target)
       ) {
         // 1. Throw an Invalid Package Target error.
-        const messge = format(Msg.InvalidExportsTarget, {
+        const message = format(Msg.InvalidExportsTarget, {
           target,
           pjsonPath: fromFileUrl(join(packageURL, "package.json")),
         });
-        throw new InvalidPackageTargetError(messge);
+        throw new InvalidPackageTargetError(message);
       }
 
       // 2. If patternMatch is a String, then
@@ -98,7 +98,7 @@ export default function packageTargetResolve(
         const targetValue = target[p];
 
         // 2. Let resolved be the result of PACKAGE_TARGET_RESOLVE( packageURL, targetValue, patternMatch, isImports, conditions).
-        const resolved = packageTargetResolve(
+        const resolved = await packageTargetResolve(
           packageURL,
           targetValue,
           patternMatch,
@@ -126,7 +126,7 @@ export default function packageTargetResolve(
     for (const targetValue of target) {
       // 1. Let resolved be the result of PACKAGE_TARGET_RESOLVE( packageURL, targetValue, patternMatch, isImports, conditions), continuing the loop on any Invalid Package Target error.
       try {
-        const resolved = packageTargetResolve(
+        const resolved = await packageTargetResolve(
           packageURL,
           targetValue,
           patternMatch,
