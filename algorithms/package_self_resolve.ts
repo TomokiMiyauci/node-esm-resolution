@@ -34,7 +34,8 @@ export default async function packageSelfResolve(
   const pjson = await READ_PACKAGE_JSON(packageURL, ctx);
 
   // 4. If pjson is null or if pjson.exports is null or undefined, then
-  if (pjson === null || (!pjson.exports)) {
+  // It is not normally null because its existence is confirmed by LOOKUP_PACKAGE_SCOPE.
+  if (pjson === null || isNil(pjson.exports)) {
     // 1. Return undefined.
     return undefined;
   }
@@ -53,4 +54,8 @@ export default async function packageSelfResolve(
 
   // 6. Otherwise, return undefined.
   return undefined;
+}
+
+function isNil(input: unknown): input is null | undefined {
+  return input === null || input === undefined;
 }
