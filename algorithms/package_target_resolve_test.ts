@@ -259,4 +259,34 @@ describe("packageTargetResolve", () => {
       ),
     ).resolves.toEqual(new URL("file:///node.js"));
   });
+
+  it("should resolve with string target what contain star and not pattern key", async () => {
+    const url = "file:///";
+
+    await expect(
+      packageTargetResolve(
+        url,
+        "./*.js",
+        null,
+        false,
+        ["node"],
+        context,
+      ),
+    ).resolves.toEqual(new URL("file:///*.js"));
+  });
+
+  it("should resolve with string target what contain star and pattern key", async () => {
+    const url = "file:///";
+
+    await expect(
+      packageTargetResolve(
+        url,
+        "./*.js",
+        "lib/a",
+        false,
+        ["node"],
+        context,
+      ),
+    ).resolves.toEqual(new URL("file:///lib/a.js"));
+  });
 });

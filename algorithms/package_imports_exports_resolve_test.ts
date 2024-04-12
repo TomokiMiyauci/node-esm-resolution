@@ -51,6 +51,17 @@ describe("packageImportsExportsResolve", () => {
 
   it("should resolve if the target keys contain star 2", async () => {
     await expect(packageImportsExportsResolve(
+      "./lib/abc",
+      { "./lib/*": "./lib/*.js", "./*": "./*.js" },
+      import.meta.resolve("file:///"),
+      false,
+      [],
+      context,
+    )).resolves.toEqual(new URL("file:///lib/abc.js"));
+  });
+
+  it("should resolve if the target keys contain star 3", async () => {
+    await expect(packageImportsExportsResolve(
       "./a",
       { "./lib/*": "./lib/*.js", "./*": "./*.js" },
       import.meta.resolve("file:///"),
