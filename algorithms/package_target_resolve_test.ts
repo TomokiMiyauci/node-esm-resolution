@@ -165,4 +165,68 @@ describe("packageTargetResolve", () => {
       ),
     ).resolves.toEqual(null);
   });
+
+  it("should resolve if target is array", async () => {
+    const url = "file:///";
+
+    await expect(
+      packageTargetResolve(
+        url,
+        ["./main.js"],
+        null,
+        false,
+        [],
+        context,
+      ),
+    ).resolves.toEqual(new URL("file:///main.js"));
+  });
+
+  it("should return null if target is null", async () => {
+    const url = "file:///";
+
+    await expect(
+      packageTargetResolve(
+        url,
+        null,
+        null,
+        false,
+        [],
+        context,
+      ),
+    ).resolves.toEqual(null);
+  });
+
+  it("should return null if array of target contains null", async () => {
+    const url = "file:///";
+
+    await expect(
+      packageTargetResolve(
+        url,
+        [null],
+        null,
+        false,
+        [],
+        context,
+      ),
+    ).resolves.toEqual(null);
+  });
+
+  it("should throw error if target is invalid value", async () => {
+    const url = "file:///";
+
+    const table: unknown[] = [undefined, 0, Symbol(), 0n, new Set()];
+
+    await Promise.all(table.map(async (target) => {
+      await expect(
+        packageTargetResolve(
+          url,
+          target,
+          null,
+          false,
+          [],
+          context,
+        ),
+      ).rejects.toThrow();
+    }));
+  });
 });
