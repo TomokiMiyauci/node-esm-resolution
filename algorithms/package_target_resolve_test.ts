@@ -229,4 +229,34 @@ describe("packageTargetResolve", () => {
       ).rejects.toThrow();
     }));
   });
+
+  it("should skip invalid target", async () => {
+    const url = "file:///";
+
+    await expect(
+      packageTargetResolve(
+        url,
+        [undefined, "./main.js"],
+        null,
+        false,
+        [],
+        context,
+      ),
+    ).resolves.toEqual(new URL("file:///main.js"));
+  });
+
+  it("should skip if target of object does not match", async () => {
+    const url = "file:///";
+
+    await expect(
+      packageTargetResolve(
+        url,
+        { default: {}, node: "./node.js" },
+        null,
+        false,
+        ["node"],
+        context,
+      ),
+    ).resolves.toEqual(new URL("file:///node.js"));
+  });
 });
