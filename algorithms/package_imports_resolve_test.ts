@@ -59,6 +59,36 @@ describe("packageImportsResolve", () => {
     );
   });
 
+  it("should resolve if the conditional import is external package", async () => {
+    await expect(
+      packageImportsResolve(
+        "#dep",
+        import.meta.resolve("../tests/node_modules/imports-map/mod.ts"),
+        ["import"],
+        context,
+      ),
+    ).resolves.toEqual(
+      new URL(
+        import.meta.resolve("../tests/node_modules/exports-string/main.js"),
+      ),
+    );
+  });
+
+  it("should resolve if the conditional import is external package", async () => {
+    await expect(
+      packageImportsResolve(
+        "#abc",
+        import.meta.resolve("../tests/node_modules/imports-map/mod.ts"),
+        ["import"],
+        context,
+      ),
+    ).resolves.toEqual(
+      new URL(
+        import.meta.resolve("../tests/node_modules/exports-string/main.js"),
+      ),
+    );
+  });
+
   it("should resolve if the package.json contain conditional imports and the specifier contain star", async () => {
     await expect(
       packageImportsResolve(
