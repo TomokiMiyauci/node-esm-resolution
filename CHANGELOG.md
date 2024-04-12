@@ -1,3 +1,11 @@
+# [1.0.0-beta.3](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.2...1.0.0-beta.3) (2024-04-12)
+
+
+### Features
+
+* **algorithms:** rename context interface fileds ([14c681a](https://github.com/TomokiMiyauci/node-esm-resolution/commit/14c681ae39957e360f4278f2fc67fd8a5e382b12))
+* **package_target_resolve:** change return type to remove non promise ([f2700b8](https://github.com/TomokiMiyauci/node-esm-resolution/commit/f2700b87fa281e2a6ecc72cad96905af62491745))
+
 # [1.0.0-beta.2](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.1...1.0.0-beta.2) (2024-04-11)
 
 
