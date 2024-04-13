@@ -62,7 +62,7 @@ const { format, url } = await esmResolve(specifier, parentURL, {
     return exists(url, { isFile: true });
   },
   existDir: (url) => {
-    return exists(url, { isFile: true });
+    return exists(url, { isDirectory: true });
   },
   realUrl: async (url) => {
     const path = await Deno.realPath(url);
