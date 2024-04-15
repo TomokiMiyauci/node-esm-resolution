@@ -36,7 +36,7 @@ export default async function esmResolve(
     ["/", "./", "../"].some((value) => specifier.startsWith(value))
   ) {
     // 1. Set resolved to the URL resolution of specifier relative to parentURL.
-    resolved = join(parentURL, specifier);
+    resolved = new URL(specifier, parentURL);
   } // 4. Otherwise, if specifier starts with "#", then
   else if (specifier.startsWith("#")) {
     // 1. Set resolved to the result of PACKAGE_IMPORTS_RESOLVE(specifier, parentURL, defaultConditions).
