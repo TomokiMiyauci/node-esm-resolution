@@ -4,7 +4,6 @@ import PACKAGE_IMPORTS_RESOLVE from "./package_imports_resolve.ts";
 import { InvalidModuleSpecifierError, ModuleNotFoundError } from "../error.ts";
 import { defaultConditions } from "./utils.ts";
 import { type Context } from "./context.ts";
-import { join } from "../deps.ts";
 import { UnsupportedDirectoryImportError } from "../error.ts";
 
 export interface ResolveResult {
@@ -66,22 +65,22 @@ export default async function esmResolve(
     }
 
     // 2. If the file at resolved is a directory, then
-    if (await ctx.existDir(new URL(resolved))) {
+    if (await ctx.existDir(resolved)) {
       // 1. Throw an Unsupported Directory Import error.
       throw new UnsupportedDirectoryImportError();
     }
 
     // 3. If the file at resolved does not exist, then
-    if (!await ctx.existFile(new URL(resolved))) {
+    if (!await ctx.existFile(resolved)) {
       // 1. Throw a Module Not Found error.
       throw new ModuleNotFoundError();
     }
 
     // 4. Set resolved to the real path of resolved, maintaining the same URL querystring and fragment components.
-    resolved = await ctx.realUrl(new URL(resolved));
+    resolved = await ctx.realUrl(resolved);
 
     // 5. Set format to the result of ESM_FILE_FORMAT(resolved).
-    format = await ESM_FILE_FORMAT(new URL(resolved), ctx);
+    format = await ESM_FILE_FORMAT(resolved, ctx);
 
     // 8. Otherwise,
   } else {
