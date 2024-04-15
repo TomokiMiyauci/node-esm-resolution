@@ -33,5 +33,5 @@ export function isObject(value: unknown): value is Record<string, unknown> {
 }
 
 export function getParentURL(url: URL | string): URL {
-  return normalize(join(url, "..", "/"));
+  return normalize(join(url, ".."));
 }

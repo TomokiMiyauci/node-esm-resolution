@@ -1,4 +1,4 @@
-import { hasSinglePattern, secondIndexOf } from "./utils.ts";
+import { getParentURL, hasSinglePattern, secondIndexOf } from "./utils.ts";
 import { describe, expect, it } from "../dev_deps.ts";
 
 describe("hasSinglePattern", () => {
@@ -57,6 +57,24 @@ describe("secondIndexOf", () => {
 
     table.forEach(([input, search, index]) => {
       expect(secondIndexOf(input, search)).toBe(index);
+    });
+  });
+});
+
+describe("getParentURL", () => {
+  it("should return parent URL", () => {
+    const table: [url: URL | string, expected: string][] = [
+      ["file:///", "file:///"],
+      ["file:///Users", "file:///"],
+      ["file:///Users/", "file:///"],
+      ["file:///Users/user", "file:///Users"],
+      ["file:///Users/user/", "file:///Users"],
+      ["file:///Users/user/mod.ts", "file:///Users/user"],
+      ["file:///Users/user/mod.ts/", "file:///Users/user"],
+    ];
+
+    table.forEach(([url, expected]) => {
+      expect(getParentURL(url)).toEqual(new URL(expected));
     });
   });
 });

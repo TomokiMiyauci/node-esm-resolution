@@ -8,13 +8,13 @@ describe("lookupPackageScope", () => {
       [import.meta.resolve("../tests/node_modules/no-pjson/mod.ts"), null],
       [
         import.meta.resolve("../tests/node_modules/exports-string/mod.ts"),
-        import.meta.resolve("../tests/node_modules/exports-string/"),
+        import.meta.resolve("../tests/node_modules/exports-string"),
       ],
       [
         import.meta.resolve(
           "../tests/node_modules/exports-subpath-string/mod.ts",
         ),
-        import.meta.resolve("../tests/node_modules/exports-subpath-string/"),
+        import.meta.resolve("../tests/node_modules/exports-subpath-string"),
       ],
       [
         import.meta.resolve("../tests/node_modules/mod.ts"),
