@@ -1,3 +1,10 @@
+# [1.0.0-beta.6](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.5...1.0.0-beta.6) (2024-04-15)
+
+
+### Bug Fixes
+
+* **esm_resolve:** fix to resolve relative URL ([076ecf2](https://github.com/TomokiMiyauci/node-esm-resolution/commit/076ecf272eeb3258bd6c68a15ea59c35493043b2))
+
 # [1.0.0-beta.5](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.4...1.0.0-beta.5) (2024-04-12)
 
 
