@@ -77,7 +77,7 @@ export default async function esmResolve(
     }
 
     // 4. Set resolved to the real path of resolved, maintaining the same URL querystring and fragment components.
-    resolved = await ctx.realUrl(resolved);
+    resolved = await ctx.realUrl(resolved) ?? resolved;
 
     // 5. Set format to the result of ESM_FILE_FORMAT(resolved).
     format = await ESM_FILE_FORMAT(resolved, ctx);

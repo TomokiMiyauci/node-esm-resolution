@@ -1,5 +1,7 @@
 export interface Context {
-  /** Read {@link url}. */
+  /** Read {@link url}.
+   * Returns nil if the {@link url} does not exist or the URL is not a file.
+   */
   readFile(
     url: URL,
   ): Promise<string | null | undefined> | string | null | undefined;
@@ -10,8 +12,12 @@ export interface Context {
   /** Whether the {@link url} exists as file. */
   existFile(url: URL): Promise<boolean> | boolean;
 
-  /** Get real `URL` from {@link url}. */
-  realUrl(url: URL): Promise<URL> | URL;
+  /** Get real `URL` from {@link fileURL}.
+   * Return nil if the {@link fileURL} does not exist.
+   */
+  realUrl(
+    fileURL: URL,
+  ): Promise<URL | null | undefined> | URL | null | undefined;
 
   /** Conditions for `exports` field in `package.json`.
    *
