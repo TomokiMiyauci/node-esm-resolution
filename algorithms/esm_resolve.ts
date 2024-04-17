@@ -3,7 +3,7 @@ import ESM_FILE_FORMAT, { type Format } from "./esm_file_format.ts";
 import PACKAGE_IMPORTS_RESOLVE from "./package_imports_resolve.ts";
 import { InvalidModuleSpecifierError, ModuleNotFoundError } from "../error.ts";
 import { defaultConditions } from "./utils.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 import { UnsupportedDirectoryImportError } from "../error.ts";
 
 export interface ResolveResult {

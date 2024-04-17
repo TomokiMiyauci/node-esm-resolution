@@ -1,6 +1,6 @@
 import { join } from "../deps.ts";
 import { getParentURL, isFileSystemRoot } from "./utils.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 
 /** Lookup scoped package.json based on {@link url}.
  * @param url The URL.

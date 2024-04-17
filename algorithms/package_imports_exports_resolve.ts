@@ -1,7 +1,7 @@
 import { hasSinglePattern } from "./utils.ts";
 import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PATTERN_KEY_COMPARE from "./pattern_key_compare.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 
 /** Resolves `imports` or `exports` field in package.json.
  * @param matchKey

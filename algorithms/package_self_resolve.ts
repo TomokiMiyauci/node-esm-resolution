@@ -2,7 +2,7 @@ import LOOKUP_PACKAGE_SCOPE from "./lookup_package_scope.ts";
 import READ_PACKAGE_JSON from "./read_package_json.ts";
 import PACKAGE_EXPORTS_RESOLVE from "./package_exports_resolve.ts";
 import { defaultConditions } from "./utils.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 import type { Subpath } from "./types.ts";
 
 /** Resolves package itself.

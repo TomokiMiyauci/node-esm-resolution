@@ -1,4 +1,4 @@
-import { type Context } from "../algorithms/context.ts";
+import { type Context } from "../algorithms/types.ts";
 import { exists, toFileUrl } from "../dev_deps.ts";
 
 export const context = {

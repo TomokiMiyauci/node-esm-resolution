@@ -7,7 +7,7 @@ import {
 } from "../error.ts";
 import { isObject } from "./utils.ts";
 import { format, fromFileUrl, join } from "../deps.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 import { Msg } from "./constants.ts";
 
 /** Resolves the given import {@link specifier} for a package.

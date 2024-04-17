@@ -1,7 +1,7 @@
 import LOOKUP_PACKAGE_SCOPE from "./lookup_package_scope.ts";
 import READ_PACKAGE_JSON from "./read_package_json.ts";
 import { extname } from "../deps.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 
 export type Format = "module" | "commonjs" | "json" | "wasm";
 

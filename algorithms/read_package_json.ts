@@ -1,7 +1,7 @@
 import { InvalidPackageConfigurationError } from "../error.ts";
 import { format, fromFileUrl, join } from "../deps.ts";
 import { Msg } from "./constants.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 
 /** Reads package.json.
  * @param packageURL The URL of the package directory.

@@ -6,7 +6,7 @@ import { isObject } from "./utils.ts";
 import { format, fromFileUrl, join } from "../deps.ts";
 import PACKAGE_RESOLVE from "./package_resolve.ts";
 import { Msg } from "./constants.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 
 /** Resolves the target of a package based on the provided parameters.
  * @param packageURL The URL of the package.json file.

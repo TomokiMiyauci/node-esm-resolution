@@ -6,7 +6,7 @@ import { format, fromFileUrl, partition } from "../deps.ts";
 import { isObject, isStartWithPeriod } from "./utils.ts";
 import PACKAGE_TARGET_RESOLVE from "./package_target_resolve.ts";
 import PACKAGE_IMPORTS_EXPORTS_RESOLVE from "./package_imports_exports_resolve.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 import type { Subpath } from "./types.ts";
 import { Msg } from "./constants.ts";
 

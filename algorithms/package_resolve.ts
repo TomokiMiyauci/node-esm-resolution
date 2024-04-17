@@ -9,7 +9,7 @@ import {
   secondIndexOf,
 } from "./utils.ts";
 import { format, isBuiltin, join } from "../deps.ts";
-import { type Context } from "./context.ts";
+import { type Context } from "./types.ts";
 import { Msg } from "./constants.ts";
 
 const msg = `Module specifier is invalid. Received '{specifier}'`;
