@@ -1,9 +1,10 @@
 import { InvalidPackageConfigurationError } from "../error.ts";
-import { format, fromFileUrl, join } from "../deps.ts";
+import { format, fromFileUrl, join, type JsonValue } from "../deps.ts";
 import { Msg } from "./constants.ts";
 import { type Context } from "./types.ts";
+import { isObject } from "./utils.ts";
 
-/** Reads package.json.
+/** Reads and parse package.json.
  * @param packageURL The URL of the package directory.
  * @param ctx
  * @throws {InvalidPackageConfigurationError} If the package.json is invalid format.
@@ -12,7 +13,7 @@ import { type Context } from "./types.ts";
 export default async function readPackageJson(
   packageURL: URL | string,
   ctx: Pick<Context, "readFile">,
-): Promise<Record<string, unknown> | null> {
+): Promise<{ [key: string]: JsonValue | undefined } | null> {
   // 1. Let pjsonURL be the resolution of "package.json" within packageURL.
   const pjsonURL = join(packageURL, "package.json");
 
@@ -26,8 +27,17 @@ export default async function readPackageJson(
   // 3. If the file at packageURL does not parse as valid JSON, then
   try {
     // 4. Return the parsed JSON source of the file at pjsonURL.
-    // TODO add validate object
-    return JSON.parse(file);
+    const parsed = JSON.parse(file) as JsonValue;
+
+    if (!isObject(parsed)) {
+      const message = format(Msg.InvalidPjson, {
+        pjsonPath: fromFileUrl(pjsonURL),
+      });
+
+      throw new InvalidPackageConfigurationError(message);
+    }
+
+    return parsed;
   } catch (e) {
     const message = format(Msg.InvalidPjson, {
       pjsonPath: fromFileUrl(pjsonURL),

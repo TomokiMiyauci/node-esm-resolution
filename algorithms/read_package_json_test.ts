@@ -69,4 +69,20 @@ describe("readPackageJson", () => {
       );
     },
   );
+
+  it(
+    "should throw error if the package.json is invalid 2",
+    async () => {
+      const url = import.meta.resolve(
+        "../tests/node_modules/pjson-not-object",
+      );
+      await expect(
+        readPackageJson(url, context),
+      ).rejects.toThrow(
+        format(Msg.InvalidPjson, {
+          pjsonPath: fromFileUrl(join(url, "package.json")),
+        }),
+      );
+    },
+  );
 });
