@@ -1,4 +1,4 @@
-# node-esm-resolution
+# node-esm-resolver
 
 Node.js ES Modules resolution algorithms
 
@@ -35,13 +35,13 @@ help.
 deno:
 
 ```bash
-deno add @miyauci/node-esm-resolution
+deno add @miyauci/node-esm-resolver
 ```
 
 npm:
 
 ```bash
-npx jsr @miyauci/node-esm-resolution
+npx jsr @miyauci/node-esm-resolver
 ```
 
 ## Usage
@@ -49,7 +49,7 @@ npx jsr @miyauci/node-esm-resolution
 The `esmResolve` implementation of `ESM_RESOLVE` is used as follows:
 
 ```ts
-import { esmResolve } from "@miyauci/node-esm-resolution";
+import { esmResolve } from "@miyauci/node-esm-resolver";
 import { exists } from "@std/fs";
 import { toFileUrl } from "@std/path";
 
@@ -80,7 +80,7 @@ For lower-level algorithms, see [Documentation](#documentation).
 
 ## API
 
-See [jsr doc](https://jsr.io/@miyauci/node-esm-resolution) for all APIs.
+See [jsr doc](https://jsr.io/@miyauci/node-esm-resolver) for all APIs.
 
 ## Contributing
 
