@@ -1,3 +1,12 @@
+# [1.0.0-beta.7](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.6...1.0.0-beta.7) (2024-04-22)
+
+
+### Features
+
+* **context:** extend return types of realUrl ([a9a1bce](https://github.com/TomokiMiyauci/node-esm-resolution/commit/a9a1bce87d7e7eda189b9ee69b00136e88a0781d))
+* **read_package_json:** add validation for JSON ([ebc7717](https://github.com/TomokiMiyauci/node-esm-resolution/commit/ebc7717b65fee966be12f865e6c772cf67a844c1))
+* rename package to `node-esm-resolver` ([f7ce1e2](https://github.com/TomokiMiyauci/node-esm-resolution/commit/f7ce1e26cb8591cd6a00ae296d8b5a821e417d53))
+
 # [1.0.0-beta.6](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.5...1.0.0-beta.6) (2024-04-15)
 
 
