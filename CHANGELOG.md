@@ -1,3 +1,10 @@
+# [1.0.0-beta.8](https://github.com/TomokiMiyauci/node-esm-resolver/compare/1.0.0-beta.7...1.0.0-beta.8) (2024-04-25)
+
+
+### Features
+
+* **mod:** export related types ([a66bd88](https://github.com/TomokiMiyauci/node-esm-resolver/commit/a66bd88aeab93e2399bea2adbd7e89b881fd8e8a))
+
 # [1.0.0-beta.7](https://github.com/TomokiMiyauci/node-esm-resolution/compare/1.0.0-beta.6...1.0.0-beta.7) (2024-04-22)
 
 
