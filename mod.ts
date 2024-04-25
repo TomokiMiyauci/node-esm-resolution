@@ -14,7 +14,10 @@ export { default as packageResolve } from "./algorithms/package_resolve.ts";
 export { default as packageSelfResolve } from "./algorithms/package_self_resolve.ts";
 export { default as packageTargetResolve } from "./algorithms/package_target_resolve.ts";
 export { default as comparePatternKey } from "./algorithms/pattern_key_compare.ts";
-export { default as readPackageJson } from "./algorithms/read_package_json.ts";
+export {
+  default as readPackageJson,
+  type PackageJson,
+} from "./algorithms/read_package_json.ts";
 export { type Context } from "./algorithms/types.ts";
 export {
   InvalidModuleSpecifierError,

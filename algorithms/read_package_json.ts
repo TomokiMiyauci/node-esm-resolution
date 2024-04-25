@@ -4,6 +4,10 @@ import { Msg } from "./constants.ts";
 import { type Context } from "./types.ts";
 import { isObject } from "./utils.ts";
 
+export interface PackageJson {
+  [key: string]: JsonValue | undefined;
+}
+
 /** Reads and parse package.json.
  * @param packageURL The URL of the package directory.
  * @param ctx
@@ -13,7 +17,7 @@ import { isObject } from "./utils.ts";
 export default async function readPackageJson(
   packageURL: URL | string,
   ctx: Pick<Context, "readFile">,
-): Promise<{ [key: string]: JsonValue | undefined } | null> {
+): Promise<PackageJson | null> {
   // 1. Let pjsonURL be the resolution of "package.json" within packageURL.
   const pjsonURL = join(packageURL, "package.json");
 
